@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llActionSpeed"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/box_1"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSubTitleView"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/text_menu_text_speed_time" />
+
+    <TextView
+        android:id="@+id/tvTxtSpeed"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="0.1ms" />
+
+    <SeekBar
+        android:id="@+id/sbSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

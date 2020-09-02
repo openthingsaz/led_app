@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c_sm_bg" >
+
+    <include
+        android:id="@+id/iclDrawTop"
+        layout="@layout/layout_draw_top_menu" />
+
+    <truesolution.ledpad.asign.view.MFreeDrawView
+        android:id="@+id/mFreeDrawView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff00ff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/iclDrawTop"
+        android:layout_above="@id/iclPage" />
+
+    <include
+        android:id="@+id/iclDrawText"
+        layout="@layout/layout_draw_sub_menu_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/iclDrawTop"
+        android:layout_above="@id/iclPage"
+        android:layout_centerHorizontal="true" />
+
+    <include
+        layout="@layout/layout_draw_pen_color"
+        android:id="@+id/iclPenColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+    <include
+        layout="@layout/layout_draw_page_menu"
+        android:id="@+id/iclPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@id/iclPenColor" />
+
+    <include
+        layout="@layout/layout_draw_action_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iclPenColor"
+        android:layout_alignTop="@id/iclPenColor"
+        android:layout_alignRight="@id/iclPenColor"
+        android:layout_alignBottom="@id/iclPenColor"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

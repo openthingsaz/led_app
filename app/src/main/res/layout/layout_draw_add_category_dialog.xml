@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#88000000" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/popup_box" >
+
+        <TextView
+            android:id="@+id/tvCategoryBoardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/category_add_1"
+            />
+
+        <EditText
+            android:id="@+id/etCategoryName"
+            android:textAppearance="@style/MainMenuSubTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvCategoryBoardTitle"
+            android:layout_alignLeft="@id/tvCategoryBoardTitle"
+            android:layout_alignRight="@id/tvCategoryBoardTitle"
+            android:layout_marginTop="30dp"
+            android:singleLine="true"
+            android:lines="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/c_black_1"
+            android:gravity="left|center_vertical"
+            android:hint="@string/text_menu_gallery_hint_category_name_input"
+            android:background="@drawable/input_box"
+            />
+
+        <TextView
+            android:id="@+id/tvBtnCategoryAddYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etCategoryName"
+            android:layout_marginTop="37dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/selector_popup_yes"
+            />
+
+        <TextView
+            android:id="@+id/tvBtnCategoryAddNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etCategoryName"
+            android:layout_marginTop="37dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_popup_no"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

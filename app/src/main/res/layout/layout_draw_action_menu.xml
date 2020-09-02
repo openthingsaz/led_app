@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llAction"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/box_2"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSubTitleView"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/text_menu_draw_action" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textAppearance="@style/TextButton"
+            android:id="@+id/tvBtnMarqueeDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@drawable/selector_draw_menu_marquee_default"/>
+
+        <TextView
+            android:textAppearance="@style/TextButton"
+            android:id="@+id/tvBtnMarqueeRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_draw_menu_marquee_left_right"/>
+
+        <TextView
+            android:textAppearance="@style/TextButton"
+            android:id="@+id/tvBtnMarqueeLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_draw_menu_marquee_right_left"/>
+
+        <TextView
+            android:textAppearance="@style/TextButton"
+            android:id="@+id/tvBtnMarqueeDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_draw_menu_marquee_up_down"/>
+
+        <TextView
+            android:textAppearance="@style/TextButton"
+            android:id="@+id/tvBtnMarqueeUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_draw_menu_marquee_down_up"/>
+
+    </LinearLayout>
+
+</LinearLayout>

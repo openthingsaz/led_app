@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_sm_bg">
+
+    <RelativeLayout
+        android:id="@+id/rlDeviceListTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/showmode_title_top">
+
+        <TextView
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/text_menu_title_device_list"/>
+
+        <TextView
+            android:id="@+id/tvBtnDeviceListTopMenuInfo"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_top_info"/>
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/iclSelectBluetoothLayout"
+        layout="@layout/layout_device_list_select"
+        android:layout_below="@id/rlDeviceListTop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/rlCheckLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@id/iclSelectBluetoothLayout"
+        android:layout_alignRight="@id/iclSelectBluetoothLayout"
+        android:layout_below="@id/iclSelectBluetoothLayout" >
+
+        <TextView
+            android:id="@+id/tvBtnCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_device_list_check_box"/>
+
+        <TextView
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvBtnCheck"
+            android:layout_marginLeft="10dp"
+            android:layout_alignTop="@id/tvBtnCheck"
+            android:layout_alignBottom="@id/tvBtnCheck"
+            android:layout_centerVertical="true"
+            android:textColor="@color/c_black_1"
+            android:text="@string/text_bt_check_auto_connect"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/llScanDeviceList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/outline_2"
+        android:layout_alignLeft="@id/iclSelectBluetoothLayout"
+        android:layout_alignRight="@id/iclSelectBluetoothLayout"
+        android:layout_below="@id/rlCheckLayout" />
+
+    <TextView
+        android:id="@+id/tvBtnBleScan"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/selector_dl_ble"/>
+
+</RelativeLayout>

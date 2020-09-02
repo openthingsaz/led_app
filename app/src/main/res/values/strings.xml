@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">Asign</string>
+
+    <!-- Menu - Draw -->
+    <string name="text_draw_title">그리기&amp;텍스트</string>
+
+    <!-- PopUp Start -->
+    <string name="pop_button_yes">Yes</string>
+    <string name="pop_text_loading">Loading...</string>
+    <string name="pop_button_no">No</string>
+    <string name="pop_button_ok">Confirm</string>
+    <string name="pop_button_concel">Cancel</string>
+    <string name="pop_msg_destroy">앱을 종료 하시겠습니까?</string>
+
+    <!-- Intro -->
+    <string name="ver_code_name">Ver.</string>
+
+    <!-- Notice Text -->
+    <string name="notice_bluetooth_on">해당 Device 에서는 Bluetooth 사용이 불가능합니다..</string>
+
+    <!-- Title Text -->
+    <string name="text_menu_title_device_list">디바이스 리스트</string>
+    <string name="text_menu_title_gallery">갤러리</string>
+    <string name="text_menu_title_draw_text">그리기&amp;텍스트</string>
+    <string name="text_menu_title_info">정보</string>
+    <string name="text_menu_title_show_mode">공연모드</string>
+    <string name="text_menu_title_firmware_update">업데이트</string>
+
+    <!-- 공연 모드 Text -->
+    <string name="text_menu_show_mode_set_id">ID 설정</string>
+    <string name="text_menu_show_mode_device_id">장치의 ID를 입력해 주세요</string>
+    <string name="text_menu_show_mode_channel_select">Channel 선택</string>
+    <string name="text_menu_show_mode_connection_info">연결 정보</string>
+    <string name="text_connected">Connected</string>
+    <string name="text_disconnected">Disconnected</string>
+
+    <!-- Device List -->
+    <string name="text_device_list_none_device">사용 가능한 디바이스가 없습니다\n디바이스를 검색해 주세요</string>
+    <string name="text_device_name_none">이름 확인 불가</string>
+    <string name="text_device_list_select_title">[연결된 Device]</string>
+
+    <!-- Firmware Update -->
+    <string name="text_device_wifi_firmware_update_title">[WIFI]</string>
+    <string name="text_device_wifi_firmware_update_hint_ssid">SSID를 입력 또는 목록중 선택</string>
+    <string name="text_device_wifi_firmware_update_hint_pw">WIFI 비밀번호를 입력</string>
+    <string name="text_device_wifi_firmware_update_noti_pw">[*WIFI 비밀번호 확인 요망*]</string>
+    <string name="text_device_wifi_firmware_update_ssid_none">SSID를 입력해주세요.</string>
+    <string name="text_device_wifi_firmware_update_pw_none">비밀번호를 입력해 주세요.</string>
+    <string name="text_device_ble_connect_none">연결된 Device 가 없습니다.</string>
+
+    <!-- Gallery -->
+    <string name="text_menu_gallery_search">검색</string>
+    <string name="text_menu_gallery_hint_category_name_input">카테고리 이름을 입력해 하세요.</string>
+    <string name="text_menu_gallery_category_name_input_none">카테고리 이름을 입력해 하세요.</string>
+
+    <!-- Draw -->
+    <string name="text_menu_draw_page">[Matrix &amp; Page]</string>
+    <string name="text_back">...</string>
+    <string name="text_menu_draw_background_color">[뒷배경]</string>
+    <string name="text_menu_draw_pen_color">[색상]</string>
+    <string name="text_menu_draw_action">[액션]</string>
+    <string name="text_menu_draw_font_size">[글자 크기]</string>
+    <string name="text_menu_draw_hint_input">표현 글자 입력</string>
+    <string name="text_menu_gallery_hint_emoticon_name_input">이모티콘 이름을 입력해 하세요.</string>
+    <string name="text_menu_gallery_category_select_none">카테고리를 선택하세요.</string>
+
+    <!-- Text -->
+    <string name="text_menu_text_page">[Text]</string>
+    <string name="text_menu_text_font_size">[Matrix &amp; Page]</string>
+    <string name="text_menu_text_speed_time">[Speed(1000ms = 1초)]</string>
+    <string name="text_speed_unit">ms</string>
+    <string name="text_bt_check_auto_connect">자동 연결</string>
+
+    <string-array name="sa_category_title">
+        <item>데이트</item>
+        <item>운전자</item>
+        <item>홀리데이</item>
+        <item>경고</item>
+        <item>문자</item>
+        <item>코로나</item>
+        <item>공연</item>
+        <item>국가</item>
+        <item>동물</item>
+        <item>상점(푸드트럭)</item>
+        <item>3D GIF</item>
+    </string-array>
+
+    <!-- Fail error message -->
+    <string name="txt_bt_connect_fail">연결에 실패하였습니다.</string>
+</resources>

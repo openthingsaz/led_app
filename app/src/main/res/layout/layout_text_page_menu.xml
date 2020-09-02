@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/box_1"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSubTitleView"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/text_menu_text_font_size" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBtn64a32"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_page_64_32" />
+
+            <TextView
+                android:id="@+id/tvBtn32a32"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_draw_menu_page_32_32" />
+            <!--
+                    <TextView
+                        android:id="@+id/tvBtn32a64"
+                        android:textAppearance="@style/TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/selector_draw_menu_page_32_64" />
+            -->
+            <TextView
+                android:id="@+id/tvBtn128a32"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/selector_draw_menu_page_128_32" />
+        </LinearLayout>
+<!--
+        <TextView
+            android:textAppearance="@style/MainMenuSubTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:text=" &amp; " />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBtnFontSize1"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font1" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize2"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font2" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize3"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font3" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize4"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font4" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize5"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font5" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize6"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font6" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize7"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font7" />
+        </RelativeLayout>
+        -->
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:id="@+id/llViewAddNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBtnPageNum1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_num1" />
+
+            <TextView
+                android:id="@+id/tvBtnPageNum2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@drawable/selector_num2" />
+
+            <TextView
+                android:id="@+id/tvBtnPageNum3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@drawable/selector_num3" />
+
+            <TextView
+                android:id="@+id/tvBtnPageNum4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@drawable/selector_num4" />
+
+            <TextView
+                android:id="@+id/tvBtnPageNum5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:background="@drawable/selector_num5" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvBtnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/llViewAddNum"
+            android:layout_toRightOf="@id/llViewAddNum"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/selector_add" />
+
+        <TextView
+            android:id="@+id/tvBtnTrash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/llViewAddNum"
+            android:layout_toRightOf="@id/tvBtnAdd"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_trash" />
+
+    </RelativeLayout>
+
+</LinearLayout>

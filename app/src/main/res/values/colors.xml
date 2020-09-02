@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="c_white">#ffffff</color>
+    <color name="c_black">#000000</color>
+
+    <color name="c_green_1">#559955</color>
+    <color name="c_green_2">#88cc88</color>
+
+    <color name="c_alpha_gray_1">#77ffffff</color>
+    <color name="c_gray_1">#d3d3d3</color>
+    <color name="c_gray_2">#a1a1a1</color>
+    <color name="c_gray_3">#737373</color>
+    <color name="c_black_1">#434343</color>
+
+    <color name="c_main_menu_title">#004a4f</color>
+    <color name="c_main_menu_subtitle">#00c0d1</color>
+
+    <color name="c_sub_line">#b9b9b9</color>
+
+    <color name="c_sm_bg">#fafafa</color>
+
+    <color name="c_cell_name">#525252</color>
+    <color name="c_cell_info">#7e7e7e</color>
+
+    <!-- Color List -->
+    <color name="c_cl_red">#ffff0000</color>
+    <color name="c_cl_orange">#ffff7f00</color>
+    <color name="c_cl_yellow">#ffffff00</color>
+    <color name="c_cl_green">#ff00ff00</color>
+    <color name="c_cl_blue">#ff0000ff</color>
+    <color name="c_cl_indigo">#ff4b0082</color>
+    <color name="c_cl_purple">#ff9400d3</color>
+</resources>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_sm_bg">
+
+    <RelativeLayout
+        android:id="@+id/rlDeviceListTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/showmode_title_top">
+
+        <TextView
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/text_menu_title_show_mode"/>
+
+        <TextView
+            android:id="@+id/tvBtnShowModeTopMenuInfo"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_top_info"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvSMMenuTitle"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlDeviceListTop"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="7dp"
+        android:text="@string/text_menu_show_mode_set_id"/>
+
+    <EditText
+        android:id="@+id/etDeviceID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:lines="1"
+        android:layout_below="@id/tvSMMenuTitle"
+        android:textSize="@dimen/sp14"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="@color/c_black"
+        android:background="@null"
+        android:layout_marginTop="7dp"
+        android:layout_alignLeft="@id/tvSMMenuTitle"
+        android:layout_alignRight="@id/tvTextBottomLine"
+        android:hint="@string/text_menu_show_mode_device_id"/>
+
+    <TextView
+        android:id="@+id/tvTextBottomLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@id/tvSMMenuTitle"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/etDeviceID"
+        android:layout_marginTop="5dp"
+        android:background="@color/c_sub_line" />
+
+    <TextView
+        android:id="@+id/tvChannelSelect"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@id/tvSMMenuTitle"
+        android:layout_below="@id/tvTextBottomLine"
+        android:text="@string/text_menu_show_mode_channel_select"/>
+
+    <TextView
+        android:id="@+id/tvBtnDeviceSelect"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@id/tvChannelSelect"
+        android:layout_alignLeft="@id/tvSMMenuTitle"
+        android:background="@drawable/selector_menu_sm_channel"/>
+
+    <TextView
+        android:id="@+id/tvConnectionInfo"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvSMMenuTitle"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tvBtnDeviceSelect"
+        android:text="@string/text_menu_show_mode_connection_info"/>
+
+    <TextView
+        android:id="@+id/tvConnectionResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp12"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:layout_alignRight="@id/tvTextBottomLine"
+        android:layout_alignTop="@id/tvConnectionInfo"
+        android:layout_below="@id/tvBtnDeviceSelect"
+        android:text="@string/text_connected"/>
+
+    <TextView
+        android:id="@+id/tvBtnMenuSMConnection"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvConnectionInfo"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/selector_sm_connection" />
+
+    <TextView
+        android:id="@+id/tvBtnMenuSMDisconnection"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvBtnMenuSMConnection"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_sm_disconnection" />
+
+</RelativeLayout>

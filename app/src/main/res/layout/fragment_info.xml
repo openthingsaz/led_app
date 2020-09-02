@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_sm_bg">
+
+    <RelativeLayout
+        android:id="@+id/rlDeviceListTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/showmode_title_top">
+
+        <TextView
+            android:id="@+id/tvBtnBack"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_back"/>
+
+        <TextView
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvBtnBack"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/text_menu_title_info"/>
+
+        <TextView
+            android:id="@+id/tvVersionInfo"
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/c_sub_line" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvBtnInfoBuy"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/rlDeviceListTop"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/selector_info_buy"/>
+
+    <TextView
+        android:id="@+id/tvBtnInfoCompany"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvBtnInfoBuy"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/selector_info_company"/>
+
+    <TextView
+        android:id="@+id/tvBtnInfoUpdate"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tvBtnInfoCompany"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/selector_info_update"/>
+
+</RelativeLayout>

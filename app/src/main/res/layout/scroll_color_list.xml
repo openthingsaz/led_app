@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tvBtnColorCustom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_color_custom" />
+
+    <TextView
+        android:id="@+id/tvBtnColorBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_black" />
+
+    <TextView
+        android:id="@+id/tvBtnColorRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_red" />
+
+    <TextView
+        android:id="@+id/tvBtnColorOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_orange" />
+
+    <TextView
+        android:id="@+id/tvBtnColorYellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_yellow" />
+
+    <TextView
+        android:id="@+id/tvBtnColorGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_green" />
+
+    <TextView
+        android:id="@+id/tvBtnColorBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_blue" />
+
+    <TextView
+        android:id="@+id/tvBtnColorIndigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_indigo" />
+
+    <TextView
+        android:id="@+id/tvBtnColorPurple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:background="@drawable/selector_color_purple" />
+
+</LinearLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@drawable/outline_2"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSubTitleView"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/text_device_wifi_firmware_update_title" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
+
+        <LinearLayout
+            android:id="@+id/llWifiInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etWifiSSID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:lines="1"
+                android:textSize="@dimen/sp18"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/c_black"
+                android:background="@null"
+                android:layout_marginTop="2dp"
+                android:layout_alignLeft="@id/tvSMMenuTitle"
+                android:layout_alignRight="@id/tvTextBottomLine"
+                android:textColorHint="@color/c_gray_2"
+                android:hint="@string/text_device_wifi_firmware_update_hint_ssid"/>
+
+            <TextView
+                android:id="@+id/tvTextBottomLine1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/tvSMMenuTitle"
+                android:layout_below="@id/etWifiSSID"
+                android:layout_marginTop="2dp"
+                android:background="@color/c_sub_line" />
+
+            <EditText
+                android:id="@+id/etWifiPW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:lines="1"
+                android:textSize="@dimen/sp18"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/c_black"
+                android:background="@null"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@id/tvSMMenuTitle"
+                android:layout_alignRight="@id/tvTextBottomLine"
+                android:textColorHint="@color/c_gray_2"
+                android:hint="@string/text_device_wifi_firmware_update_hint_pw"/>
+
+            <TextView
+                android:id="@+id/tvTextBottomLine2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/tvSMMenuTitle"
+                android:layout_below="@id/etWifiPW"
+                android:layout_marginTop="2dp"
+                android:background="@color/c_sub_line" />
+
+            <TextView
+                android:id="@+id/tvBtnConnect"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/iclSelectWifiLayout"
+                android:background="@drawable/selector_connect_bar" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

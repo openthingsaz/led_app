@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/etInputText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:lines="1"
+        android:singleLine="true"
+        android:gravity="center"
+        android:hint="@string/text_menu_draw_hint_input"
+        android:textColor="@color/c_black"
+        android:textSize="@dimen/f7"
+        android:layout_alignLeft="@id/llTextLayout"
+        android:layout_alignRight="@id/llTextLayout"
+        android:layout_above="@id/llTextLayout"/>
+
+    <LinearLayout
+        android:id="@+id/llTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/box_2">
+
+        <TextView
+            android:id="@+id/tvSubTitleColor"
+            android:textAppearance="@style/MainMenuSubTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/text_menu_draw_font_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBtnFontSize1"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font1" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize2"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font2" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize3"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font3" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize4"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font4" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize5"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font5" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize6"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font6" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize7"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font7" />
+<!--
+            <TextView
+                android:id="@+id/tvBtnFontSize8"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font8" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize9"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/selector_draw_menu_font9" />
+                -->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

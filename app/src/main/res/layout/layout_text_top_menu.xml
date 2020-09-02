@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gallery_top">
+
+    <TextView
+        android:textAppearance="@style/MainMenuTitleText"
+        android:id="@+id/tvMainMenuTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:text="@string/text_menu_text_page"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvMainMenuTitleText"
+        android:layout_alignBottom="@id/tvMainMenuTitleText"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp" >
+
+        <TextView
+            android:id="@+id/tvBtnPlay"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/selector_draw_menu_top_play" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rlSubTabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMainMenuTitleText"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/btnTabMenuPen"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_draw_menu_tab_pen"/>
+
+        <TextView
+            android:id="@+id/btnTabMenuAction"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/selector_draw_menu_tab_action"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBtnFontSize1"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font1" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize2"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font2" />
+
+            <TextView
+                android:id="@+id/tvBtnFontSize3"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_draw_menu_font3" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

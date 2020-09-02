@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gallery_top">
+
+    <TextView
+        android:textAppearance="@style/MainMenuTitleText"
+        android:id="@+id/tvMainMenuTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:text="@string/text_menu_title_draw_text"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvMainMenuTitleText"
+        android:layout_alignBottom="@id/tvMainMenuTitleText"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp" >
+
+        <TextView
+            android:id="@+id/tvBtnSave"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_draw_menu_top_save" />
+
+        <TextView
+            android:id="@+id/tvBtnGallery"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvBtnSave"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_draw_menu_top_camera" />
+
+        <TextView
+            android:id="@+id/tvBtnPlay"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvBtnGallery"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_draw_menu_top_play" />
+
+        <TextView
+            android:id="@+id/tvBtnPause"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_alignLeft="@id/tvBtnPlay"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_draw_menu_top_pause" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rlSubTabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMainMenuTitleText"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/btnTabMenuPen"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_draw_menu_tab_pen"/>
+
+        <TextView
+            android:id="@+id/btnTabMenuEraser"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/selector_draw_menu_tab_eraser"/>
+
+        <TextView
+            android:id="@+id/btnTabMenuFill"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/selector_draw_menu_tab_fill"/>
+
+        <TextView
+            android:id="@+id/btnTabMenuSpoid"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/selector_draw_menu_tab_spoid"/>
+
+        <TextView
+            android:id="@+id/btnTabMenuText"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/selector_draw_menu_tab_text"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBtnDotSize1"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_font_num1" />
+
+            <TextView
+                android:id="@+id/tvBtnDotSize2"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_font_num2" />
+
+            <TextView
+                android:id="@+id/tvBtnDotSize3"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_font_num3" />
+        </RelativeLayout>
+
+        <!--
+        <TextView
+            android:id="@+id/btnTabMenuAction"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_draw_menu_tab_action"/>
+            -->
+    </LinearLayout>
+</RelativeLayout>

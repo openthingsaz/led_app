@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c_sm_bg" >
+
+    <RelativeLayout
+        android:id="@+id/rlDrawTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gallery_top">
+
+        <TextView
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_alignTop="@id/tvSearchBox"
+            android:layout_alignBottom="@id/tvSearchBox"
+            android:gravity="center_vertical"
+            android:text="@string/text_menu_title_gallery"/>
+
+        <TextView
+            android:id="@+id/tvSearchBox"
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/search_bar"
+            />
+
+        <TextView
+            android:id="@+id/tvBtnSearchBox"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tvSearchBox"
+            android:layout_marginRight="14dp"
+            android:layout_alignRight="@id/tvSearchBox"
+            android:layout_marginTop="7.1dp"
+            android:background="@drawable/selector_gallery_top_search"
+            />
+
+        <EditText
+            android:id="@+id/etGallerySearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:lines="1"
+            android:background="@null"
+            android:layout_marginLeft="14dp"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:gravity="center_vertical"
+            android:layout_alignLeft="@id/tvSearchBox"
+            android:layout_toLeftOf="@id/tvBtnSearchBox"
+            android:layout_alignTop="@id/tvSearchBox"
+            android:layout_alignBottom="@id/tvSearchBox"
+            android:hint="@string/text_menu_gallery_search"/>
+
+        <LinearLayout
+            android:id="@+id/rlSubTabMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etGallerySearch"
+            android:layout_marginTop="9dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true" >
+
+            <TextView
+                android:id="@+id/btnTabMenuCategory"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_gallery_tab_menu_category"/>
+            <TextView
+                android:id="@+id/btnTabMenuAll"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_gallery_tab_menu_all"/>
+            <TextView
+                android:id="@+id/btnTabMenuFavorite"
+                android:textAppearance="@style/TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_gallery_tab_menu_favorite"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gvGalleryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:columnWidth="100dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="0dp"
+        android:horizontalSpacing="0dp"
+        android:stretchMode="spacingWidthUniform"
+        android:layout_below="@id/rlDrawTop"/>
+
+    <TextView
+        android:id="@+id/tvBtnGalleryAdd"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/selector_category_add"/>
+
+    <!-- android:columnWidth="100dp" -->
+
+</RelativeLayout>

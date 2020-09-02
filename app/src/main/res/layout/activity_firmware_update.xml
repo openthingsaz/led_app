@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_sm_bg">
+
+    <RelativeLayout
+        android:id="@+id/rlDeviceListTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/showmode_title_top">
+
+        <TextView
+            android:id="@+id/tvBtnBack"
+            android:textAppearance="@style/TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_back"/>
+
+        <TextView
+            android:textAppearance="@style/MainMenuTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvBtnBack"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/text_menu_title_firmware_update"/>
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/iclSelectWifiLayout"
+        layout="@layout/layout_wifi_list_select"
+        android:layout_below="@id/rlDeviceListTop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvInfoText"
+        android:textAppearance="@style/MainMenuSubTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/iclSelectWifiLayout"
+        android:layout_alignRight="@id/iclSelectWifiLayout"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:textColor="@color/c_cl_red"
+        android:layout_below="@id/iclSelectWifiLayout"
+        android:text="@string/text_device_wifi_firmware_update_noti_pw"/>
+
+    <TextView
+        android:id="@+id/tvBtnWifiScan"
+        android:textAppearance="@style/TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/iclSelectWifiLayout"
+        android:layout_alignRight="@id/iclSelectWifiLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/selector_search_bar"/>
+
+    <ListView
+        android:id="@+id/llScanWifiList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/outline_2"
+        android:layout_alignLeft="@id/iclSelectWifiLayout"
+        android:layout_alignRight="@id/iclSelectWifiLayout"
+        android:layout_above="@id/tvBtnWifiScan"
+        android:layout_below="@id/tvInfoText" />
+
+</RelativeLayout>
