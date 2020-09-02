@@ -220,9 +220,9 @@ public class MBluetoothUtils {
 		_send_data[_idx_s++] = __font_size;
 		
 		// Font Color
-		_send_data[_idx_s++] = (byte)Color.red(_color);
-		_send_data[_idx_s++] = (byte)Color.green(_color);
-		_send_data[_idx_s++] = (byte)Color.blue(_color);
+		_send_data[_idx_s++] = (byte)(((_color >> 16) & 0xff)/8); // RED
+		_send_data[_idx_s++] = (byte)(((_color >> 8) & 0xff)/8); // GREEN
+		_send_data[_idx_s++] = (byte)(((_color >> 0) & 0xff)/8); // BLUE
 		
 		// BG Color
 		_send_data[_idx_s++] = (byte)0x00; // RED
