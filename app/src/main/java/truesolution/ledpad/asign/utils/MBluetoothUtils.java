@@ -194,7 +194,7 @@ public class MBluetoothUtils {
 	 * @param _action
 	 * @param _time
 	 */
-	public static void mSendText(BluetoothSPP _bspp, String _text, int _color, int _font_size, int _action, int _time) {
+	public static void mSendText(BluetoothSPP _bspp, String _text, int _color, int _bg_color, int _font_size, int _action, int _time) {
 		if(_text == null && _text.length() == 0)
 			return;
 		
@@ -220,14 +220,14 @@ public class MBluetoothUtils {
 		_send_data[_idx_s++] = __font_size;
 		
 		// Font Color
-		_send_data[_idx_s++] = (byte)(((_color >> 16) & 0xff)/8); // RED
-		_send_data[_idx_s++] = (byte)(((_color >> 8) & 0xff)/8); // GREEN
-		_send_data[_idx_s++] = (byte)(((_color >> 0) & 0xff)/8); // BLUE
+		_send_data[_idx_s++] = (byte)(((_color & 0x00ff0000) >> 16) / 8);
+		_send_data[_idx_s++] = (byte)(((_color & 0x0000ff00) >> 8) / 8);
+		_send_data[_idx_s++] = (byte)(((_color & 0x000000ff) >> 0) / 8);
 		
 		// BG Color
-		_send_data[_idx_s++] = (byte)0x00; // RED
-		_send_data[_idx_s++] = (byte)0x00; // GREEN
-		_send_data[_idx_s++] = (byte)0x00; // BLUE
+		_send_data[_idx_s++] = (byte)(((_bg_color & 0x00ff0000) >> 16) / 8);
+		_send_data[_idx_s++] = (byte)(((_bg_color & 0x0000ff00) >> 8) / 8);
+		_send_data[_idx_s++] = (byte)(((_bg_color & 0x000000ff) >> 0) / 8);
 		
 		byte _cmd = FD_BT.SET_TEXT;
 		if(_action != FD_DRAW.ACTION_DEFAULT) {
@@ -242,13 +242,16 @@ public class MBluetoothUtils {
 	
 	/**
 	 * Send Multi Text
+	 *
 	 * @param _bspp
 	 * @param _ar_text
+	 * @param _bg_color
 	 * @param _font_size
 	 * @param _action
 	 * @param _time
+	 * @return
 	 */
-	public static int mSendMultiText(BluetoothSPP _bspp, ArrayList<STR_Text> _ar_text, int _font_size, int _action, int _time) {
+	public static int mSendMultiText(BluetoothSPP _bspp, ArrayList<STR_Text> _ar_text, int _bg_color, int _font_size, int _action, int _time) {
 		if(_ar_text == null && _ar_text.size() == 0)
 			return MAPP.ERROR_;
 		
@@ -278,9 +281,9 @@ public class MBluetoothUtils {
 		_send_data[_idx_s++] = MAPP.INIT_;
 		
 		// BG Color
-		_send_data[_idx_s++] = (byte)0x00; // RED
-		_send_data[_idx_s++] = (byte)0x00; // GREEN
-		_send_data[_idx_s++] = (byte)0x00; // BLUE
+		_send_data[_idx_s++] = (byte)(((_bg_color & 0x00ff0000) >> 16) / 8);
+		_send_data[_idx_s++] = (byte)(((_bg_color & 0x0000ff00) >> 8) / 8);
+		_send_data[_idx_s++] = (byte)(((_bg_color & 0x000000ff) >> 0) / 8);
 		
 		// Font Size
 		byte __font_size = (byte)(_font_size & 0x000000ff);
@@ -300,9 +303,12 @@ public class MBluetoothUtils {
 			}
 			
 			// Text Color
-			_send_data[_idx_s++] = (byte) Color.red(_str.mColor);
-			_send_data[_idx_s++] = (byte) Color.green(_str.mColor);
-			_send_data[_idx_s++] = (byte) Color.blue(_str.mColor);
+//			_send_data[_idx_s++] = (byte) Color.red(_str.mColor);
+//			_send_data[_idx_s++] = (byte) Color.green(_str.mColor);
+//			_send_data[_idx_s++] = (byte) Color.blue(_str.mColor);
+			_send_data[_idx_s++] = (byte)(((_str.mColor >> 16) & 0xff)/8); // RED
+			_send_data[_idx_s++] = (byte)(((_str.mColor >> 8) & 0xff)/8); // GREEN
+			_send_data[_idx_s++] = (byte)(((_str.mColor >> 0) & 0xff)/8); // BLUE
 		}
 		
 		byte _cmd = FD_BT.SET_TEXT_EACH;

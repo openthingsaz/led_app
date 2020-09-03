@@ -35,7 +35,7 @@ public class MFragmentDeviceList extends Fragment {
 	private MainActivity mActivity;
 	private List<STR_BluetoothDevice> mList;
 	
-	private TextView tvBtnBtScan, tvSelectDeviceInfo, tvBtName, tvBtAddress, tvBtnCheck;
+	private TextView tvBtnBtScan, tvBtDeviceNone, tvBtName, tvBtAddress, tvBtnCheck;
 	private ListView llScanDeviceList;
 	private MBluetoothDeviceBaseAdapter mBluetoothDeviceBaseAdapter;
 	private LinearLayout llDeviceInfo;
@@ -70,7 +70,6 @@ public class MFragmentDeviceList extends Fragment {
 				mActivity.mBtScan();
 			}
 		});
-		tvSelectDeviceInfo = _view.findViewById(R.id.tvBtDeviceNone);
 		
 		llScanDeviceList = _view.findViewById(R.id.llScanDeviceList);
 		mBluetoothDeviceBaseAdapter = new MBluetoothDeviceBaseAdapter(mActivity.getApplicationContext(), mList);
@@ -87,7 +86,7 @@ public class MFragmentDeviceList extends Fragment {
 		});
 		
 		llDeviceInfo = _view.findViewById(R.id.llDeviceInfo);
-		tvSelectDeviceInfo = _view.findViewById(R.id.tvBtDeviceNone);
+		tvBtDeviceNone = _view.findViewById(R.id.tvBtDeviceNone);
 		tvBtName = _view.findViewById(R.id.tvBtName);
 		tvBtAddress = _view.findViewById(R.id.tvBtAddress);
 		tvBtnCheck = _view.findViewById(R.id.tvBtnCheck);
@@ -116,15 +115,15 @@ public class MFragmentDeviceList extends Fragment {
 		mBluetoothDeviceBaseAdapter.notifyDataSetChanged();
 	}
 	
-	public void mUpdateBtNone() {
-		llDeviceInfo.setVisibility(View.VISIBLE);
-		tvSelectDeviceInfo.setVisibility(View.INVISIBLE);
-	}
-	
 	public void mSetDeviceConnectComplete(String _name, String _address) {
 		tvBtName.setText(_name);
 		tvBtAddress.setText(_address);
 		llDeviceInfo.setVisibility(View.VISIBLE);
-		tvSelectDeviceInfo.setVisibility(View.INVISIBLE);
+		tvBtDeviceNone.setVisibility(View.INVISIBLE);
+	}
+	
+	public void mSetDisconnectDevice() {
+		llDeviceInfo.setVisibility(View.INVISIBLE);
+		tvBtDeviceNone.setVisibility(View.VISIBLE);
 	}
 }

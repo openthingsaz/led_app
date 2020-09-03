@@ -58,6 +58,7 @@
     <string name="text_back">...</string>
     <string name="text_menu_draw_background_color">[뒷배경]</string>
     <string name="text_menu_draw_pen_color">[색상]</string>
+    <string name="text_menu_draw_bg_color">[배경 색상]</string>
     <string name="text_menu_draw_action">[액션]</string>
     <string name="text_menu_draw_font_size">[글자 크기]</string>
     <string name="text_menu_draw_hint_input">표현 글자 입력</string>
@@ -87,4 +88,5 @@
 
     <!-- Fail error message -->
     <string name="txt_bt_connect_fail">연결에 실패하였습니다.</string>
+    <string name="txt_bt_disconnect">연결이 끊겼습니다.</string>
 </resources>

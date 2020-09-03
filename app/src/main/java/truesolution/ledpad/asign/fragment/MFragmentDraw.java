@@ -312,6 +312,8 @@ public class MFragmentDraw extends Fragment {
 		tvBtnColorPurple.setOnClickListener(mOnColorClickListener);
 		
 		mPenColor = mActivity.getResources().getColor(R.color.c_cl_red);
+		gdColorSelect.setColor(mPenColor);
+		tvSelectColor.setBackground(gdColorSelect);
 	}
 	
 	private View.OnClickListener mOnColorClickListener = new View.OnClickListener() {
@@ -320,7 +322,7 @@ public class MFragmentDraw extends Fragment {
 			int _id = view.getId();
 			if(_id == R.id.tvBtnColorCustom) {
 				MainActivity _activity = mActivity;
-				_activity.mGoColorSettingDialog();
+				_activity.mGoColorSettingDialog(MainActivity.POPUP_COLOR_SETTING_DRAW);
 			} else if(_id == R.id.tvBtnColorBlack) {
 				mPenColor = mActivity.getResources().getColor(R.color.c_black);
 			} else if(_id == R.id.tvBtnColorRed) {
@@ -348,7 +350,7 @@ public class MFragmentDraw extends Fragment {
 		}
 	};
 	
-	public void mSetPenColor(int _color) {
+	public void mSetColor(int _color) {
 		mPenColor = _color;
 		gdColorSelect.setColor(mPenColor);
 		tvSelectColor.setBackground(gdColorSelect);

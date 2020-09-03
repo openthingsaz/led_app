@@ -1,6 +1,7 @@
 package truesolution.ledpad.asign.fragment;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -67,6 +69,7 @@ public class MFragmentText extends Fragment {
 			mFindFDVViewById(mView);
 			mFindPageViewById(mView);
 			mFindColorViewById(mView);
+			mFindTextBGColorViewById(mView);
 			mFindActionViewById(mView);
 			mFindTopTabViewById(mView);
 		}
@@ -119,12 +122,12 @@ public class MFragmentText extends Fragment {
 					for(int i = 0; i < mPageEA; i++) {
 						_list.add(strText[i]);
 					}
-					MBluetoothUtils.mSendMultiText(mActivity.mBtSpp, _list, strText[0].mFontSizeIdx, mAction, mActionTime);
+					MBluetoothUtils.mSendMultiText(mActivity.mBtSpp, _list, mTextBGColor, strText[0].mFontSizeIdx, mAction, mActionTime);
 					return;
 				}
 				
 				MBluetoothUtils.mSendText(mActivity.mBtSpp,
-						etInputText[mPageIdx].getText().toString(), mPenColor,
+						etInputText[mPageIdx].getText().toString(), mPenColor, mTextBGColor,
 						DEVICE_TEXT_SIZE[strText[mPageIdx].mFontSizeIdx],
 						mAction, mActionTime
 				);
@@ -189,6 +192,7 @@ public class MFragmentText extends Fragment {
 				@Override
 				public void run() {
 					mActivity.mCancelProgress();
+					mActivity.mKeyboardHide(etInputText[FD_DRAW.PAGE_1]);
 //					RelativeLayout.LayoutParams _rllp = new RelativeLayout.LayoutParams(mFreeDrawView.mAreaW, mFreeDrawView.mAreaH);
 //					_rllp.leftMargin = mFreeDrawView.mStartX;
 //					_rllp.topMargin = mFreeDrawView.mStartY;
@@ -286,24 +290,25 @@ public class MFragmentText extends Fragment {
 	};
 	// End
 	
-	// TODO TCH : Color
-	private LinearLayout iclPenColor;
+	// TODO TCH : Text Color
+	private LinearLayout iclTextColor;
 	private GradientDrawable gdColorSelect = new GradientDrawable();
 	public int mPenColor;
 	private TextView tvSelectColor, tvBtnColorCustom, tvBtnColorBlack, tvBtnColorRed, tvBtnColorOrange, tvBtnColorYellow, tvBtnColorGreen,
 			tvBtnColorBlue, tvBtnColorIndigo, tvBtnColorPurple;
 	private void mFindColorViewById(View _view) {
-		tvSelectColor = _view.findViewById(R.id.tvSelectColor);
-		tvBtnColorCustom = _view.findViewById(R.id.tvBtnColorCustom);
-		tvBtnColorBlack = _view.findViewById(R.id.tvBtnColorBlack);
-		tvBtnColorRed = _view.findViewById(R.id.tvBtnColorRed);
-		tvBtnColorOrange = _view.findViewById(R.id.tvBtnColorOrange);
-		tvBtnColorYellow = _view.findViewById(R.id.tvBtnColorYellow);
-		tvBtnColorGreen = _view.findViewById(R.id.tvBtnColorGreen);
-		tvBtnColorBlue = _view.findViewById(R.id.tvBtnColorBlue);
-		tvBtnColorIndigo = _view.findViewById(R.id.tvBtnColorIndigo);
-		tvBtnColorPurple = _view.findViewById(R.id.tvBtnColorPurple);
-		iclPenColor = _view.findViewById(R.id.iclPenColor);
+		iclTextColor = _view.findViewById(R.id.iclTextColor);
+		
+		tvSelectColor = iclTextColor.findViewById(R.id.tvSelectColor);
+		tvBtnColorCustom = iclTextColor.findViewById(R.id.tvBtnColorCustom);
+		tvBtnColorBlack = iclTextColor.findViewById(R.id.tvBtnColorBlack);
+		tvBtnColorRed = iclTextColor.findViewById(R.id.tvBtnColorRed);
+		tvBtnColorOrange = iclTextColor.findViewById(R.id.tvBtnColorOrange);
+		tvBtnColorYellow = iclTextColor.findViewById(R.id.tvBtnColorYellow);
+		tvBtnColorGreen = iclTextColor.findViewById(R.id.tvBtnColorGreen);
+		tvBtnColorBlue = iclTextColor.findViewById(R.id.tvBtnColorBlue);
+		tvBtnColorIndigo = iclTextColor.findViewById(R.id.tvBtnColorIndigo);
+		tvBtnColorPurple = iclTextColor.findViewById(R.id.tvBtnColorPurple);
 		
 		gdColorSelect = (GradientDrawable) tvSelectColor.getBackground();
 		
@@ -318,6 +323,8 @@ public class MFragmentText extends Fragment {
 		tvBtnColorPurple.setOnClickListener(mOnColorClickListener);
 		
 		mPenColor = mActivity.getResources().getColor(R.color.c_cl_red);
+		gdColorSelect.setColor(mPenColor);
+		tvSelectColor.setBackground(gdColorSelect);
 	}
 	
 	private View.OnClickListener mOnColorClickListener = new View.OnClickListener() {
@@ -326,7 +333,7 @@ public class MFragmentText extends Fragment {
 			int _id = view.getId();
 			if(_id == R.id.tvBtnColorCustom) {
 				MainActivity _activity = mActivity;
-				_activity.mGoColorSettingDialog();
+				_activity.mGoColorSettingDialog(MainActivity.POPUP_COLOR_SETTING_TEXT);
 			} else if(_id == R.id.tvBtnColorBlack) {
 				mPenColor = mActivity.getResources().getColor(R.color.c_black);
 			} else if(_id == R.id.tvBtnColorRed) {
@@ -351,6 +358,91 @@ public class MFragmentText extends Fragment {
 		}
 	};
 	// End
+	
+	// TODO TCH : BG Color
+	private LinearLayout iclTextBGColor;
+	private GradientDrawable gdTextBGColorSelect = new GradientDrawable();
+	public int mTextBGColor;
+	private TextView tvTextBGSelectColor, tvBtnTextBGColorCustom, tvBtnTextBGColorBlack, tvBtnTextBGColorRed,
+			tvBtnTextBGColorOrange, tvBtnTextBGColorYellow, tvBtnTextBGColorGreen,
+			tvBtnTextBGColorBlue, tvBtnTextBGColorIndigo, tvBtnTextBGColorPurple;
+	private void mFindTextBGColorViewById(View _view) {
+		iclTextBGColor = _view.findViewById(R.id.iclBGColor);
+		
+		tvTextBGSelectColor = iclTextBGColor.findViewById(R.id.tvTextBGSelectColor);
+		
+		tvBtnTextBGColorCustom = iclTextBGColor.findViewById(R.id.tvBtnColorCustom);
+		tvBtnTextBGColorBlack = iclTextBGColor.findViewById(R.id.tvBtnColorBlack);
+		tvBtnTextBGColorRed = iclTextBGColor.findViewById(R.id.tvBtnColorRed);
+		tvBtnTextBGColorOrange = iclTextBGColor.findViewById(R.id.tvBtnColorOrange);
+		tvBtnTextBGColorYellow = iclTextBGColor.findViewById(R.id.tvBtnColorYellow);
+		tvBtnTextBGColorGreen = iclTextBGColor.findViewById(R.id.tvBtnColorGreen);
+		tvBtnTextBGColorBlue = iclTextBGColor.findViewById(R.id.tvBtnColorBlue);
+		tvBtnTextBGColorIndigo = iclTextBGColor.findViewById(R.id.tvBtnColorIndigo);
+		tvBtnTextBGColorPurple = iclTextBGColor.findViewById(R.id.tvBtnColorPurple);
+		
+		gdTextBGColorSelect = (GradientDrawable) tvTextBGSelectColor.getBackground();
+		
+		tvBtnTextBGColorCustom.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorBlack.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorRed.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorOrange.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorYellow.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorGreen.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorBlue.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorIndigo.setOnClickListener(mOnTextBGColorClickListener);
+		tvBtnTextBGColorPurple.setOnClickListener(mOnTextBGColorClickListener);
+
+		mTextBGColor = mActivity.getResources().getColor(R.color.c_black);
+		gdTextBGColorSelect.setColor(mTextBGColor);
+		tvTextBGSelectColor.setBackground(gdTextBGColorSelect);
+	}
+	
+	private View.OnClickListener mOnTextBGColorClickListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View view) {
+			int _id = view.getId();
+			if(_id == R.id.tvBtnColorCustom) {
+				MainActivity _activity = mActivity;
+				_activity.mGoColorSettingDialog(MainActivity.POPUP_COLOR_SETTING_TEXT_BG);
+			} else if(_id == R.id.tvBtnColorBlack) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_black);
+			} else if(_id == R.id.tvBtnColorRed) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_red);
+			} else if(_id == R.id.tvBtnColorOrange) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_orange);
+			} else if(_id == R.id.tvBtnColorYellow) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_yellow);
+			} else if(_id == R.id.tvBtnColorGreen) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_green);
+			} else if(_id == R.id.tvBtnColorBlue) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_blue);
+			} else if(_id == R.id.tvBtnColorIndigo) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_indigo);
+			} else if(_id == R.id.tvBtnColorPurple) {
+				mTextBGColor = mActivity.getResources().getColor(R.color.c_cl_purple);
+			}
+			
+			gdTextBGColorSelect.setColor(mTextBGColor);
+			tvTextBGSelectColor.setBackground(gdTextBGColorSelect);
+			mFreeDrawView.mSetAllColor(mTextBGColor);
+		}
+	};
+	// End
+	
+	public void mSetColor(int _color, boolean _is_text) {
+		if(_is_text) {
+			mPenColor = _color;
+			gdColorSelect.setColor(mPenColor);
+			tvSelectColor.setBackground(gdColorSelect);
+			etInputText[mPageIdx].setTextColor(mPenColor);
+		} else {
+			mTextBGColor = _color;
+			gdTextBGColorSelect.setColor(mTextBGColor);
+			tvTextBGSelectColor.setBackground(gdTextBGColorSelect);
+			mFreeDrawView.mSetAllColor(_color);
+		}
+	}
 	
 	// TODO TCH : Find Page View Start
 	private TextView tvBtnPageSize32a32, tvBtnPageSize64a32, tvBtnPageSize128a32;

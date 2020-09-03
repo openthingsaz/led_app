@@ -181,7 +181,8 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	 * @param _is_cancel
 	 */
 	public void mShowMessageDialog(int _msg_id, boolean _is_cancel) {
-		mMessageDialog.mShow(getResources().getString(_msg_id), _is_cancel);
+		if(mMessageDialog != null)
+			mMessageDialog.mShow(getResources().getString(_msg_id), _is_cancel);
 	}
 	
 	

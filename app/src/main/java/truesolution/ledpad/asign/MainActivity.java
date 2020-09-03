@@ -118,6 +118,10 @@ public class MainActivity extends MBaseActivity {
 	// File Save Index
 	public int mSaveFileIndex = MAPP.INIT_;
 	
+	public static final int POPUP_COLOR_SETTING_DRAW              = 0;
+	public static final int POPUP_COLOR_SETTING_TEXT              = 1;
+	public static final int POPUP_COLOR_SETTING_TEXT_BG           = 2;
+	
 	/**
 	 * Get Error Message
 	 *
@@ -174,8 +178,10 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		mIsFinish = true;
 		mBtSpp.stopService();
 		unregisterReceiver(mBtReceiver);
 	}
@@ -203,7 +209,7 @@ public class MainActivity extends MBaseActivity {
 //						FD_File.MDIR_NAME;
 		MDEBUG.debug("Environment.getExternalStorageDirectory().getAbsolutePath() : " + mFileDirPath);
 		
-		mBtInit();;
+		mBtInit();
 		
 		new MInitLoadRoomDBDataAsyncTask(this, MAPP.mAppDatabase).execute();
 	}
@@ -414,18 +420,46 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
-	public void mGoColorSettingDialog() {
-		final MFragmentDraw _mfd = (MFragmentDraw) mFragmentDraw;
-		AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, _mfd.mPenColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-			@Override
-			public void onCancel(AmbilWarnaDialog dialog) {
-			}
-			
-			@Override
-			public void onOk(AmbilWarnaDialog dialog, int color) {
-				_mfd.mSetPenColor(color);
-			}
-		});
+	public void mGoColorSettingDialog(int _st) {
+		AmbilWarnaDialog colorPicker = null;
+		
+		if(_st == MainActivity.POPUP_COLOR_SETTING_DRAW) {
+			final MFragmentDraw _mfd = (MFragmentDraw) mFragmentDraw;
+			colorPicker = new AmbilWarnaDialog(this, _mfd.mPenColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+				@Override
+				public void onCancel(AmbilWarnaDialog dialog) {
+				}
+				
+				@Override
+				public void onOk(AmbilWarnaDialog dialog, int color) {
+					_mfd.mSetColor(color);
+				}
+			});
+		} else if(_st == MainActivity.POPUP_COLOR_SETTING_TEXT) {
+			final MFragmentText _mft = (MFragmentText) mFragmentText;
+			colorPicker = new AmbilWarnaDialog(this, _mft.mPenColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+				@Override
+				public void onCancel(AmbilWarnaDialog dialog) {
+				}
+				
+				@Override
+				public void onOk(AmbilWarnaDialog dialog, int color) {
+					_mft.mSetColor(color, true);
+				}
+			});
+		} else if(_st == MainActivity.POPUP_COLOR_SETTING_TEXT_BG) {
+			final MFragmentText _mft = (MFragmentText) mFragmentText;
+			colorPicker = new AmbilWarnaDialog(this, _mft.mTextBGColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+				@Override
+				public void onCancel(AmbilWarnaDialog dialog) {
+				}
+				
+				@Override
+				public void onOk(AmbilWarnaDialog dialog, int color) {
+					_mft.mSetColor(color, false);
+				}
+			});
+		}
 		colorPicker.show();
 	}
 	
@@ -491,7 +525,7 @@ public class MainActivity extends MBaseActivity {
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 				MDEBUG.debug("ACTION_FOUND!!!!");
 				// If it's already paired, skip it, because it's been listed already
-				if(device.getBondState() != BluetoothDevice.BOND_BONDED) {
+//				if(device.getBondState() != BluetoothDevice.BOND_BONDED) {
 					MDEBUG.debug("BOND_BONDED name : " + device.getName() + ", address : " + device.getAddress());
 					
 					STR_BluetoothDevice _str = new STR_BluetoothDevice();
@@ -507,7 +541,7 @@ public class MainActivity extends MBaseActivity {
 					
 					if(_is_update)
 						mBtDeviceList.add(_str);
-				}
+//				}
 				
 				// When discovery is finished, change the Activity title
 			} else if(BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
@@ -599,8 +633,29 @@ public class MainActivity extends MBaseActivity {
 			}
 			
 			public void onDeviceDisconnected() { //연결해제
+				if(mIsFinish)
+					return;
+				
 				mIsBtConnect = false;
+				if(mFragmentDeviceList == null)
+					mFragmentDeviceList = new MFragmentDeviceList(MainActivity.this, mBtDeviceList);
 				MDEBUG.debug("onDeviceDisconnected!");
+				mBtSpp.stopAutoConnect();
+				mBtSpp.cancelDiscovery();
+				mBtSpp.disconnect();
+				mBtDeviceList.clear();
+				
+				mHandler.postDelayed(new Runnable() {
+                     @Override
+                     public void run() {
+	                     mBtDeviceList.clear();
+	                     ((MFragmentDeviceList)mFragmentDeviceList).mSetDisconnectDevice();
+	                     
+	                     mShowMessageDialog(R.string.txt_bt_disconnect, false);
+	                     mViewPagerCurrentPage(FD_MENU.DEVICE_LIST);
+	                     mCancelProgress();
+                     }
+                }, FD_DELAY.MIN_DISPLAY);
 			}
 			
 			public void onDeviceConnectionFailed() { //연결실패
@@ -611,7 +666,6 @@ public class MainActivity extends MBaseActivity {
 						public void run() {
 							mShowMessageDialog(R.string.txt_bt_connect_fail, false);
 							mViewPagerCurrentPage(FD_MENU.DEVICE_LIST);
-							MDEBUG.debug("cancel onDeviceConnectionFailed!");
 							mCancelProgress();
 						}
 					}, FD_DELAY.MIN_DISPLAY

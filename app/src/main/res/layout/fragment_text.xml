@@ -138,9 +138,17 @@
 
         <include
             layout="@layout/layout_draw_pen_color"
-            android:id="@+id/iclPenColor"
+            android:id="@+id/iclTextColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
+        <include
+            layout="@layout/layout_draw_text_bg_color"
+            android:id="@+id/iclBGColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true" />
 
     </LinearLayout>
