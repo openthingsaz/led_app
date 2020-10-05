@@ -54,6 +54,7 @@
         android:textColor="@color/c_black"
         android:background="@null"
         android:layout_marginTop="7dp"
+        android:inputType="number"
         android:layout_alignLeft="@id/tvSMMenuTitle"
         android:layout_alignRight="@id/tvTextBottomLine"
         android:hint="@string/text_menu_show_mode_device_id"/>
@@ -87,6 +88,16 @@
         android:layout_below="@id/tvChannelSelect"
         android:layout_alignLeft="@id/tvSMMenuTitle"
         android:background="@drawable/selector_menu_sm_channel"/>
+
+    <Spinner
+        android:id="@+id/spChannelList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@id/tvBtnDeviceSelect"
+        android:layout_alignTop="@id/tvBtnDeviceSelect"
+        android:layout_alignRight="@id/tvBtnDeviceSelect"
+        android:layout_alignBottom="@id/tvBtnDeviceSelect"/>
+
 
     <TextView
         android:id="@+id/tvConnectionInfo"

@@ -57,9 +57,12 @@
 
     <TextView
         android:id="@+id/tvBtnWifiScan"
-        android:textAppearance="@style/TextButton"
+        android:textAppearance="@style/MainMenuTitleText"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:gravity="center"
+        android:textColor="@color/c_white"
+        android:text="@string/text_firmware_update_search"
         android:layout_alignLeft="@id/iclSelectWifiLayout"
         android:layout_alignRight="@id/iclSelectWifiLayout"
         android:layout_alignParentBottom="true"

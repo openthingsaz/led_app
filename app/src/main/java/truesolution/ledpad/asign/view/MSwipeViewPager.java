@@ -10,18 +10,28 @@ import androidx.viewpager.widget.ViewPager;
 /**
  * Created by TCH on 2020/07/18
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/18
+ * @since 2020 /07/18
  */
-
 public class MSwipeViewPager extends ViewPager {
 	private boolean enabled;
 	
+	/**
+	 * Instantiates a new M swipe view pager.
+	 *
+	 * @param context the context
+	 */
 	public MSwipeViewPager(Context context) {
 		super(context);
 	}
 	
+	/**
+	 * Instantiates a new M swipe view pager.
+	 *
+	 * @param context the context
+	 * @param attrs   the attrs
+	 */
 	public MSwipeViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -51,6 +61,11 @@ public class MSwipeViewPager extends ViewPager {
 		}
 	}
 	
+	/**
+	 * M set paging enabled.
+	 *
+	 * @param enabled the enabled
+	 */
 	public void mSetPagingEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}

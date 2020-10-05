@@ -15,11 +15,17 @@ import truesolution.ledpad.asign.db.MD_Emoticon;
 /**
  * Created by TCH on 2020/07/10
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/10
+ * @since 2020 /07/10
  */
 public abstract class LoadRoomDBDataAsyncTask extends AsyncTask<Void, Void, Void> {
+	/**
+	 * M result.
+	 *
+	 * @param _c_list the c list
+	 * @param _e_list the e list
+	 */
 	public abstract void mResult(List<MD_Category> _c_list, List<MD_Emoticon> _e_list);
 	
 	private MAppDatabase mAppDatabase;
@@ -27,6 +33,12 @@ public abstract class LoadRoomDBDataAsyncTask extends AsyncTask<Void, Void, Void
 	private List<MD_Emoticon> mEmoticonList = new ArrayList<>();
 	private Activity mActivity;
 	
+	/**
+	 * Instantiates a new Load room db data async task.
+	 *
+	 * @param _activity the activity
+	 * @param _md       the md
+	 */
 	public LoadRoomDBDataAsyncTask(Activity _activity, MAppDatabase _md) {
 		mActivity = _activity;
 		mAppDatabase = _md;
@@ -40,12 +52,11 @@ public abstract class LoadRoomDBDataAsyncTask extends AsyncTask<Void, Void, Void
 		// Category
 		if(mCategoryList.size() > 0) {
 			// TODO Test Code
-//			for(int i = 0; i < mCategoryList.size(); i++) {
-//				MDEBUG.debug("mCategoryList[" + i + "] : " + mCategoryList.get(i).mName);
-//			}
+			for(int i = 0; i < mCategoryList.size(); i++) {
+				MDEBUG.debug("mCategoryList[" + i + "] : " + mCategoryList.get(i).idx_);
+			}
 		} else {
 			// Insert Data
-//			MDB_Init.MCATEGORY_TITLE = mContext.getResources().getStringArray(R.array.sa_category_title);
 			for(int i = 0; i < MDB_FD.MCATEGORY_TITLE.length; i++) {
 				MD_Category _md = new MD_Category();
 				_md.mName = MDB_FD.MCATEGORY_TITLE[i];
@@ -53,11 +64,9 @@ public abstract class LoadRoomDBDataAsyncTask extends AsyncTask<Void, Void, Void
 				_md.mSubIdx = MDB_FD.MCATEGORY_TYPE[i];
 				_md.mIsImgDefault = false;
 				mAppDatabase.mDAOHandler().insertCategory(_md);
-				MDEBUG.debug("- i : " + i);
 			}
 			
 			mCategoryList = mAppDatabase.mDAOHandler().mGetCategoryAll();
-			MDEBUG.debug("- mCategoryList size : " + mCategoryList.size());
 		}
 		
 		// Emoticon
@@ -66,10 +75,7 @@ public abstract class LoadRoomDBDataAsyncTask extends AsyncTask<Void, Void, Void
 			MDEBUG.debug("mEmoticonList.size() : " + mEmoticonList.size());
 		} else {
 			// Insert Data
-//			MDB_Init.MCATEGORY_TITLE = mContext.getResources().getStringArray(R.array.sa_category_title);
-//			MDEBUG.debug("MDB_FD.MEMOTICON_NAME.length : " + MDB_FD.MEMOTICON_NAME.length);
 			MDEBUG.debug("MDB_FD.MEMOTICON_RES_ID.length : " + MDB_FD.MEMOTICON_RES_ID.length);
-//			MDEBUG.debug("MDB_FD.MEMOTICON_CATEGORY_TYPE.length : " + MDB_FD.MEMOTICON_CATEGORY_TYPE.length);
 			int _idx_cnt = 0;
 			for(int i = 0; i < MDB_FD.MEMOTICON_NAME.length; i++) {
 				MD_Emoticon _md = new MD_Emoticon();

@@ -69,6 +69,15 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/selector_draw_menu_marquee_down_up"/>
 
+        <TextView
+            android:textAppearance="@style/TextButton"
+            android:id="@+id/tvBtnMarqueeBlink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_draw_menu_marquee_blink"/>
+
     </LinearLayout>
 
 </LinearLayout>

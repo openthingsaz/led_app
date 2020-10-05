@@ -13,9 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import truesolution.ledpad.asign.MDEBUG;
 import truesolution.ledpad.asign.MainActivity;
 import truesolution.ledpad.asign.R;
 import truesolution.ledpad.asign.app.MAPP;
@@ -28,15 +29,19 @@ import truesolution.ledpad.asign.view.MFreeDrawView;
 /**
  * Created by TCH on 2020/07/07
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/07
+ * @since 2020 /07/07
  */
-
 public class MFragmentDraw extends Fragment {
 	private MainActivity mActivity;
 	private View mView;
 	
+	/**
+	 * Instantiates a new M fragment draw.
+	 *
+	 * @param _activity the activity
+	 */
 	public MFragmentDraw(Activity _activity) {
 		mActivity = (MainActivity) _activity;
 	}
@@ -63,7 +68,7 @@ public class MFragmentDraw extends Fragment {
 		tvBtnPlay.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				mActivity.mSetAllDotDataSend(mFreeDrawView.mCellEAW, mFreeDrawView.mCellEAH, mFreeDrawView.mGetCurrentColors());
+				mActivity.mSetAllDotDataSend(mFreeDrawView.mCellEAW, mFreeDrawView.mCellEAH, mFreeDrawView.mGetCurrentColors(), mPageIdx);
 //				MBluetoothUtils.mSendAllDotData(mFreeDrawView.mCellEAW, mFreeDrawView.mCellEAH, mFreeDrawView.mCellColor);
 			}
 		});
@@ -84,7 +89,10 @@ public class MFragmentDraw extends Fragment {
 	}
 	// End
 	
-	// TODO TCH : MFreeDrawView
+	/**
+	 * The M free draw view.
+	 */
+// TODO TCH : MFreeDrawView
 	public MFreeDrawView mFreeDrawView;
 	private void mFindFDVViewById(View _view) {
 		mFreeDrawView = _view.findViewById(R.id.mFreeDrawView);
@@ -93,10 +101,20 @@ public class MFragmentDraw extends Fragment {
 		mFreeDrawView.mSetColor(getResources().getColor(R.color.c_cl_red));
 	}
 	
+	/**
+	 * M get cell w int.
+	 *
+	 * @return the int
+	 */
 	public int mGetCellW() {
 		return mFreeDrawView.mCellEAW;
 	}
 	
+	/**
+	 * M get cell h int.
+	 *
+	 * @return the int
+	 */
 	public int mGetCellH() {
 		return mFreeDrawView.mCellEAH;
 	}
@@ -112,7 +130,7 @@ public class MFragmentDraw extends Fragment {
 				if(mTabMenu == FD_DRAW.TAB_MENU_FILL) {
 					mFreeDrawView.mSetAllColor(mPenColor);
 					
-					MDEBUG.debug("red : " + Color.red(mPenColor) + ", green : " + Color.green(mPenColor) + ", blue : " + Color.blue(mPenColor));
+//					MDEBUG.debug("red : " + Color.red(mPenColor) + ", green : " + Color.green(mPenColor) + ", blue : " + Color.blue(mPenColor));
 					MBluetoothUtils.transmit_data(mActivity.mBtSpp, FD_BT.SET_SCR_COLOR, new byte[] {
 							(byte)Color.red(mPenColor), (byte)Color.green(mPenColor), (byte)Color.blue(mPenColor)
 					});
@@ -283,6 +301,9 @@ public class MFragmentDraw extends Fragment {
 	// TODO TCH : Color
 	private LinearLayout iclPenColor;
 	private GradientDrawable gdColorSelect = new GradientDrawable();
+	/**
+	 * The M pen color.
+	 */
 	public int mPenColor;
 	private TextView tvSelectColor, tvBtnColorCustom, tvBtnColorBlack, tvBtnColorRed, tvBtnColorOrange, tvBtnColorYellow, tvBtnColorGreen,
 			tvBtnColorBlue, tvBtnColorIndigo, tvBtnColorPurple;
@@ -350,6 +371,11 @@ public class MFragmentDraw extends Fragment {
 		}
 	};
 	
+	/**
+	 * M set color.
+	 *
+	 * @param _color the color
+	 */
 	public void mSetColor(int _color) {
 		mPenColor = _color;
 		gdColorSelect.setColor(mPenColor);
@@ -399,6 +425,7 @@ public class MFragmentDraw extends Fragment {
 				btnTabMenuPen.setSelected(true);
 				mFreeDrawView.setVisibility(View.VISIBLE);
 				mFreeDrawView.mTouchHold = false;
+				mFreeDrawView.mSetColor(mPenColor);
 				iclPenColor.setVisibility(View.VISIBLE);
 				llAction.setVisibility(View.INVISIBLE);
 				iclDrawText.setVisibility(View.INVISIBLE);
@@ -497,6 +524,11 @@ public class MFragmentDraw extends Fragment {
 		mPageEA = MAPP.START_ALIVE;
 	}
 	
+	/**
+	 * M get matrix ea int.
+	 *
+	 * @return the int
+	 */
 	public int mGetMatrixEA() {
 		return mPageEA;
 	}
@@ -546,43 +578,59 @@ public class MFragmentDraw extends Fragment {
 				llMatrix.setVisibility(View.VISIBLE);
 				mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
 				tvBtnPageNum[mPageIdx].setSelected(true);
+				mActivity.screen_clear();
 			} else if(_id == R.id.tvBtnPageNum2) {
 				mPageIdx = FD_DRAW.PAGE_2;
 				llMatrix.setVisibility(View.INVISIBLE);
 				mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
 				tvBtnPageNum[mPageIdx].setSelected(true);
+				mActivity.screen_clear();
 			} else if(_id == R.id.tvBtnPageNum3) {
 				mPageIdx = FD_DRAW.PAGE_3;
 				llMatrix.setVisibility(View.INVISIBLE);
 				mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
 				tvBtnPageNum[mPageIdx].setSelected(true);
+				mActivity.screen_clear();
 			} else if(_id == R.id.tvBtnPageNum4) {
 				mPageIdx = FD_DRAW.PAGE_4;
 				llMatrix.setVisibility(View.INVISIBLE);
 				mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
 				tvBtnPageNum[mPageIdx].setSelected(true);
+				mActivity.screen_clear();
 			} else if(_id == R.id.tvBtnPageNum5) {
 				mPageIdx = FD_DRAW.PAGE_5;
 				llMatrix.setVisibility(View.INVISIBLE);
 				mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
 				tvBtnPageNum[mPageIdx].setSelected(true);
+				mActivity.screen_clear();
 			} else if(_id == R.id.tvBtnAdd) {
 				if(mPageEA <= FD_DRAW.PAGE_5) {
 					llMatrix.setVisibility(View.INVISIBLE);
 					tvBtnPageNum[mPageEA].setVisibility(View.VISIBLE);
 					mPageIdx = mPageEA;
 					mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
+					mFreeDrawView.mSetAllColor(mPageIdx, Color.BLACK);
 					mPageEA++;
+					mActivity.screen_clear();
 				}
-				
+				mFreeDrawView.mSetColor(mPenColor);
 				tvBtnPageNum[mPageEA - MAPP.START_ALIVE].setSelected(true);
 			} else if(_id == R.id.tvBtnTrash) {
 				if(mPageEA > MAPP.START_ALIVE) {
 					int _idx = mPageEA - MAPP.START_ALIVE;
 					tvBtnPageNum[_idx].setVisibility(View.GONE);
 					tvBtnPageNum[_idx].setSelected(false);
+					mFreeDrawView.mSetAllColor(mPageIdx, Color.BLACK);
+					
+					for(int i = mPageIdx + 1; i < mPageEA; i++) {
+						int[][] _colors = mFreeDrawView.mGetColors(i);
+						mFreeDrawView.mSetAllColor(i - 1, _colors);
+					}
 					mPageEA--;
+					mActivity.screen_clear();
 				}
+				mPageIdx = MAPP.INIT_;
+				mFreeDrawView.mSetFreeDrawIdx(mPageIdx);
 				llMatrix.setVisibility(View.VISIBLE);
 				tvBtnPageNum[MAPP.INIT_].setSelected(true);
 			}
@@ -616,11 +664,35 @@ public class MFragmentDraw extends Fragment {
 	
 	/**
 	 * mUpdate
-	 * @param _colors
-	 * @param _w
-	 * @param _h
+	 *
+	 * @param _colors the colors
+	 * @param _w      the w
+	 * @param _h      the h
 	 */
 	public void mUpdateColors(int[] _colors, int _w, int _h) {
-		mFreeDrawView.mSetAllColor(_colors, _w, _h);
+		mFreeDrawView.mSetAllColor(MAPP.ERROR_, _colors, _w, _h);
+	}
+	
+	/**
+	 * M set all page color.
+	 *
+	 * @param _page_colors the page colors
+	 * @param _w           the w
+	 * @param _h           the h
+	 */
+	public void mSetAllPageColor(List<int[]> _page_colors, int _w, int _h) {
+		if(_page_colors == null && _page_colors.size() == 0)
+			return;
+		
+		mFreeDrawView.mSetFreeDrawIdx(MAPP.INIT_);
+		llMatrix.setVisibility(View.INVISIBLE);
+		mPageEA = _page_colors.size();
+		for(int i = 0; i < _page_colors.size(); i++) {
+			tvBtnPageNum[i].setVisibility(View.VISIBLE);
+			
+			int[] _colors = _page_colors.get(i);
+			mFreeDrawView.mSetAllColor(i, _colors, _w, _h);
+		}
+		tvBtnPageNum[MAPP.INIT_].setSelected(true);
 	}
 }

@@ -15,21 +15,49 @@ import truesolution.ledpad.asign.fragment.str.STR_Text;
 /**
  * Created by TCH on 2020/07/27
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/27
+ * @since 2020 /07/27
  */
-
 public class MBluetoothUtils {
+	/**
+	 * The type Send data class.
+	 */
 	public static class SendDataClass implements Serializable {
+		/**
+		 * The X.
+		 */
 		public byte x;
+		/**
+		 * The Y.
+		 */
 		public byte y;
+		/**
+		 * The Red.
+		 */
 		public int red;
+		/**
+		 * The Green.
+		 */
 		public int green;
+		/**
+		 * The Blue.
+		 */
 		public int blue;
+		/**
+		 * The Color.
+		 */
 		public int color;
 	}
 	
+	/**
+	 * Send all dot.
+	 *
+	 * @param _bspp         the bspp
+	 * @param _w            the w
+	 * @param _h            the h
+	 * @param _matrix_array the matrix array
+	 */
 	public static void send_all_dot(BluetoothSPP _bspp, int _w, int _h, int[][] _matrix_array) {
 		int checkCount = 0;
 		for (int i=0; i<_w; i++){
@@ -86,6 +114,14 @@ public class MBluetoothUtils {
 //		transmit_data(mBtSpp, FD_BT.SET_DRAW, tsendData);
 	}
 	
+	/**
+	 * Crc 16 ccitt short.
+	 *
+	 * @param buf the buf
+	 * @param len the len
+	 *
+	 * @return the short
+	 */
 	public static short crc16_ccitt(byte[] buf, int len) {
 		int counter;
 		short crc = 0;
@@ -94,6 +130,13 @@ public class MBluetoothUtils {
 		return crc;
 	}
 	
+	/**
+	 * Transmit data.
+	 *
+	 * @param ba   the ba
+	 * @param cmd  the cmd
+	 * @param data the data
+	 */
 	public static void transmit_data(BluetoothSPP ba, byte cmd, byte[] data) {
 		short dataLen = 0;
 		short crc;
@@ -128,6 +171,12 @@ public class MBluetoothUtils {
 		ba.send(sendData, false);
 	}
 	
+	/**
+	 * Transmit data.
+	 *
+	 * @param ba  the ba
+	 * @param cmd the cmd
+	 */
 	public static void transmit_data(BluetoothSPP ba, byte cmd) {
 		short dataLen = 0;
 		short crc;
@@ -155,6 +204,16 @@ public class MBluetoothUtils {
 		ba.send(sendData, false);
 	}
 	
+	/**
+	 * Send single dot.
+	 *
+	 * @param _bspp      the bspp
+	 * @param _page_num  the page num
+	 * @param _cmd       the cmd
+	 * @param xPos       the x pos
+	 * @param yPos       the y pos
+	 * @param colorValue the color value
+	 */
 	public static void send_single_dot(BluetoothSPP _bspp, int _page_num, byte _cmd, byte xPos, byte yPos, int colorValue) {
 		byte red_col;
 		byte green_col;
@@ -187,20 +246,21 @@ public class MBluetoothUtils {
 	
 	/**
 	 * Send Text Data
-	 * @param _bspp
-	 * @param _text
-	 * @param _color
-	 * @param _font_size
-	 * @param _action
-	 * @param _time
+	 *
+	 * @param _bspp          the bspp
+	 * @param _text          the text
+	 * @param _color         the color
+	 * @param _bg_color      the bg color
+	 * @param _font_size     the font size
+	 * @param _action        the action
+	 * @param _time          the time
+	 * @param _save_play_gap the save play gap
 	 */
-	public static void mSendText(BluetoothSPP _bspp, String _text, int _color, int _bg_color, int _font_size, int _action, int _time) {
+	public static void mSendText(BluetoothSPP _bspp, String _text, int _color, int _bg_color, int _font_size, int _action, int _time, byte _save_play_gap) {
 		if(_text == null && _text.length() == 0)
 			return;
 		
-//		MDEBUG.debug("_text : " + _text + ", _color : " + _color + ", _font_size : " + _font_size);
-//		MDEBUG.debug("_action : " + _action + ", _time : " + _time);
-		
+//		MDEBUG.debug("_text : _" + _text + "_, _color : " + _color + ", _font_size : " + _font_size);
 		byte[] _text_data = _text.getBytes();
 		int _idx_s = MAPP.INIT_;
 //		MDEBUG.debug("_text_data : " + _text_data.length + ", _text_data : " + new String(_text_data));
@@ -208,6 +268,8 @@ public class MBluetoothUtils {
 		if(_action != FD_DRAW.ACTION_DEFAULT) {
 			_data_len += (FD_BT.SIZE_ACTION_TIME);
 		}
+		
+		MDEBUG.debug("mSendText _text_data.length : " + _text_data.length);
 		
 		byte[] _send_data = new byte[_data_len];
 		byte page_num = MAPP.START_ALIVE;
@@ -218,6 +280,7 @@ public class MBluetoothUtils {
 		
 		byte __font_size = (byte)(_font_size & 0x000000ff);
 		_send_data[_idx_s++] = __font_size;
+		MDEBUG.debug("mSendText __font_size : " + __font_size);
 		
 		// Font Color
 		_send_data[_idx_s++] = (byte)(((_color & 0x00ff0000) >> 16) / 8);
@@ -229,29 +292,33 @@ public class MBluetoothUtils {
 		_send_data[_idx_s++] = (byte)(((_bg_color & 0x0000ff00) >> 8) / 8);
 		_send_data[_idx_s++] = (byte)(((_bg_color & 0x000000ff) >> 0) / 8);
 		
-		byte _cmd = FD_BT.SET_TEXT;
+		byte _cmd = (byte)(FD_BT.SET_TEXT + _save_play_gap);
 		if(_action != FD_DRAW.ACTION_DEFAULT) {
 			_send_data[_idx_s++] = (byte)(_action & 0x000000ff);
 			_send_data[_idx_s++] = (byte)((_time & 0x0000ff00) >> 8);
 			_send_data[_idx_s++] = (byte)(_time & 0x000000ff);
 			
-			_cmd = FD_BT.SET_TEXT_ACTION;
+			_cmd = (byte)(FD_BT.SET_TEXT_ACTION + _save_play_gap);
 		}
+		
+		MDEBUG.debug("send text _cmd : " + _cmd);
 		transmit_data(_bspp, _cmd, _send_data);
 	}
 	
 	/**
 	 * Send Multi Text
 	 *
-	 * @param _bspp
-	 * @param _ar_text
-	 * @param _bg_color
-	 * @param _font_size
-	 * @param _action
-	 * @param _time
-	 * @return
+	 * @param _bspp          the bspp
+	 * @param _ar_text       the ar text
+	 * @param _bg_color      the bg color
+	 * @param _font_size     the font size
+	 * @param _action        the action
+	 * @param _time          the time
+	 * @param _save_play_gap the save play gap
+	 *
+	 * @return int
 	 */
-	public static int mSendMultiText(BluetoothSPP _bspp, ArrayList<STR_Text> _ar_text, int _bg_color, int _font_size, int _action, int _time) {
+	public static int mSendMultiText(BluetoothSPP _bspp, ArrayList<STR_Text> _ar_text, int _bg_color, int _font_size, int _action, int _time, byte _save_play_gap) {
 		if(_ar_text == null && _ar_text.size() == 0)
 			return MAPP.ERROR_;
 		
@@ -263,9 +330,10 @@ public class MBluetoothUtils {
 		for(int i = 0; i < _ar_text.size(); i++) {
 			String _text = _ar_text.get(i).mText;
 			if(_text != null && _text.length() > 0) {
+				byte[] _txt_buf = _text.getBytes();
 				_filter_result.add(_ar_text.get(i));
-				_filter_result_size.add(_text.getBytes().length);
-				_total_size += (FD_BT.SIZE_MULTI_TEXT_FONT_SIZE + _text.getBytes().length + FD_BT.SIZE_MULTI_TEXT_COLOR);
+				_filter_result_size.add(_txt_buf.length);
+				_total_size += (FD_BT.SIZE_MULTI_TEXT_FONT_SIZE + _txt_buf.length + FD_BT.SIZE_MULTI_TEXT_COLOR);
 			}
 		}
 		// Except - Action
@@ -288,6 +356,7 @@ public class MBluetoothUtils {
 		// Font Size
 		byte __font_size = (byte)(_font_size & 0x000000ff);
 		_send_data[_idx_s++] = __font_size;
+		MDEBUG.debug("mSendMultiText __font_size : " + __font_size);
 		
 		// Group Count
 		_send_data[_idx_s++] = (byte)(_filter_result.size() & 0x000000ff);
@@ -296,6 +365,9 @@ public class MBluetoothUtils {
 			STR_Text _str = _filter_result.get(i);
 			// Text Length
 			_send_data[_idx_s++] = (byte)(_filter_result_size.get(i) & 0x000000ff);
+			
+			MDEBUG.debug("Text len[" + i + "] : " + ((byte)(_filter_result_size.get(i) & 0x000000ff)));
+			
 			byte[] _text_buf = _str.mText.getBytes();
 			for(int y = 0; y < _text_buf.length; y++) {
 				// Text Data
@@ -311,7 +383,7 @@ public class MBluetoothUtils {
 			_send_data[_idx_s++] = (byte)(((_str.mColor >> 0) & 0xff)/8); // BLUE
 		}
 		
-		byte _cmd = FD_BT.SET_TEXT_EACH;
+		byte _cmd = (byte)(FD_BT.SET_TEXT_EACH + _save_play_gap);
 		if(_action != FD_DRAW.ACTION_DEFAULT) {
 			// TODO : TCH Screen Color
 //			_send_data[_idx_s++] = (byte)0x00; // RED
@@ -323,8 +395,10 @@ public class MBluetoothUtils {
 			_send_data[_idx_s++] = (byte)((_time & 0x0000ff00) >> 8);
 			_send_data[_idx_s++] = (byte)(_time & 0x000000ff);
 			
-			_cmd = FD_BT.SET_TEXT_EACH_ACTION;
+			_cmd = (byte)(FD_BT.SET_TEXT_EACH_ACTION + _save_play_gap);
 		}
+		
+		MDEBUG.debug("send multi text _cmd : " + _cmd);
 		transmit_data(_bspp, _cmd, _send_data);
 		
 		return MAPP.SUCCESS_;
@@ -332,13 +406,14 @@ public class MBluetoothUtils {
 	
 	/**
 	 * Send Multi Dot
-	 * @param _bspp
-	 * @param _pixel_size
-	 * @param _w
-	 * @param _h
-	 * @param _x
-	 * @param _y
-	 * @param _color
+	 *
+	 * @param _bspp       the bspp
+	 * @param _pixel_size the pixel size
+	 * @param _w          the w
+	 * @param _h          the h
+	 * @param _x          the x
+	 * @param _y          the y
+	 * @param _color      the color
 	 */
 	public static void mSendMultiDot(BluetoothSPP _bspp, int _pixel_size,
 	                                 int _w, int _h,
@@ -347,39 +422,43 @@ public class MBluetoothUtils {
 		SendDataClass[] _sdc = new SendDataClass[_size];
 		byte page_num = 1;
 		int _cnt = 0;
-		int _end_x = (_x + _pixel_size);
-		int _end_y = (_y + _pixel_size);
-//		MDEBUG.debug("_pixel_size : " + _pixel_size);
-//		MDEBUG.debug("_w : " + _w + ", _h : " + _h);
-//		MDEBUG.debug("_x : " + _x + ", _y : " + _y);
-		for (int i = _x; i < _end_x; i++){
-			for(int j = _y; j < _end_y; j++) {
+		int _s_x = (_x - (_pixel_size / 2));
+		int _s_y = (_y - (_pixel_size / 2));
+		if(_s_x < MAPP.INIT_)
+			_s_x = MAPP.INIT_;
+		if(_s_y < MAPP.INIT_)
+			_s_y = MAPP.INIT_;
+		int _end_x = (_s_x + _pixel_size);
+		int _end_y = (_s_y + _pixel_size);
+		for (int i = _s_x; i < _end_x; i++){
+			for(int j = _s_y; j < _end_y; j++) {
 				if(i < _w && j < _h) {
-//					MDEBUG.debug("i : " + i + ", j : " + j);
 					_sdc[_cnt] = new SendDataClass();
 					_sdc[_cnt].x = (byte) i;
 					_sdc[_cnt].y = (byte) j;
-					_sdc[_cnt].red = (byte) Color.red(_color);
-					_sdc[_cnt].green = (byte) Color.green(_color);
-					_sdc[_cnt].blue = (byte) Color.blue(_color);
+//					_sdc[_cnt].red = (byte) Color.red(_color);
+//					_sdc[_cnt].green = (byte) Color.green(_color);
+//					_sdc[_cnt].blue = (byte) Color.blue(_color);
+					
+					_sdc[_cnt].red = (byte)(((_color >> 16) & 0xff) / 8); // RED
+					_sdc[_cnt].green = (byte)(((_color >> 8) & 0xff) / 8); // GREEN
+					_sdc[_cnt].blue = (byte)(((_color >> 0) & 0xff) / 8); // BLUE
 					++_cnt;
 				}
 			}
 		}
 		
-		byte[] _send_data = new byte[_cnt * FD_BT.SIZE_FIELD];
+		byte[] _send_data = new byte[FD_BT.SIZE_PAGE + FD_BT.SIZE_LEN1 + (_cnt * FD_BT.SIZE_FIELD)];
 		int inx = 0;
 		_send_data[inx++] = page_num;
-		_send_data[inx++] = (byte)(_cnt & 0xff);
-		_send_data[inx++] = (byte)(_cnt << 8);
+		_send_data[inx++] = (byte)(_cnt >> 8);
+		_send_data[inx++] = (byte)_cnt;
 		for (int i = 0; i < _cnt; i++) {
 			_send_data[inx++] = _sdc[i].x;
 			_send_data[inx++] = _sdc[i].y;
 			_send_data[inx++] = (byte)_sdc[i].red;
 			_send_data[inx++] = (byte)_sdc[i].green;
 			_send_data[inx++] = (byte)_sdc[i].blue;
-
-//			MDEBUG.debug("_sdc[" + i + "].x_pos : " + _sdc[i].x_pos + ", _sdc[" + i + "].y_pos : " + _sdc[i].x_pos);
 		}
 		transmit_data(_bspp, FD_BT.SET_DRAW, _send_data);
 	}

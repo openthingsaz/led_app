@@ -17,20 +17,32 @@ import truesolution.ledpad.asign.fragment.str.STR_Wifi;
 /**
  * Created by TCH on 2020/07/10
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/10
+ * @since 2020 /07/10
  */
-
 public class MWifiDeviceBaseAdapter extends BaseAdapter {
 	private final Context mContext;
 	private List<STR_Wifi> mList = new ArrayList<>();
 	
+	/**
+	 * Instantiates a new M wifi device base adapter.
+	 *
+	 * @param context the context
+	 * @param _list   the list
+	 */
 	public MWifiDeviceBaseAdapter(Context context, List<STR_Wifi> _list) {
 		this.mContext = context;
 		mList = _list;
 	}
 	
+	/**
+	 * M get cell data str wifi.
+	 *
+	 * @param _pos the pos
+	 *
+	 * @return the str wifi
+	 */
 	public STR_Wifi mGetCellData(int _pos) {
 		if(_pos >= mList.size()) {
 			return null;
@@ -39,6 +51,9 @@ public class MWifiDeviceBaseAdapter extends BaseAdapter {
 		return mList.get(_pos);
 	};
 	
+	/**
+	 * M update data and view.
+	 */
 	public void mUpdateDataAndView() {
 		// View Recycle
 		notifyDataSetChanged();
@@ -88,8 +103,17 @@ public class MWifiDeviceBaseAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
+	/**
+	 * The type View holder.
+	 */
 	public static class ViewHolder {
+		/**
+		 * The Tv name.
+		 */
 		public TextView tvName;
+		/**
+		 * The Tv address.
+		 */
 		public TextView tvAddress;
 	}
 }

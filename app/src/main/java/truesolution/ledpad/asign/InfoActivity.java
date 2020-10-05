@@ -14,21 +14,39 @@ import butterknife.OnClick;
 /**
  * Created by TCH
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @date 2020. 07. 01.
  */
 public class InfoActivity extends MBaseActivity {
+	/**
+	 * The Tv btn back.
+	 */
 	@BindView(R.id.tvBtnBack)
 	TextView tvBtnBack;
+	/**
+	 * The Tv version info.
+	 */
 	@BindView(R.id.tvVersionInfo)
 	TextView tvVersionInfo;
+	/**
+	 * The Rl device list top.
+	 */
 	@BindView(R.id.rlDeviceListTop)
 	RelativeLayout rlDeviceListTop;
+	/**
+	 * The Tv btn info buy.
+	 */
 	@BindView(R.id.tvBtnInfoBuy)
 	TextView tvBtnInfoBuy;
+	/**
+	 * The Tv btn info company.
+	 */
 	@BindView(R.id.tvBtnInfoCompany)
 	TextView tvBtnInfoCompany;
+	/**
+	 * The Tv btn info update.
+	 */
 	@BindView(R.id.tvBtnInfoUpdate)
 	TextView tvBtnInfoUpdate;
 	
@@ -95,6 +113,11 @@ public class InfoActivity extends MBaseActivity {
 		ButterKnife.bind(this);
 	}
 	
+	/**
+	 * On view clicked.
+	 *
+	 * @param view the view
+	 */
 	@OnClick({R.id.tvBtnBack, R.id.tvBtnInfoBuy, R.id.tvBtnInfoCompany, R.id.tvBtnInfoUpdate})
 	public void onViewClicked(View view) {
 		switch(view.getId()) {

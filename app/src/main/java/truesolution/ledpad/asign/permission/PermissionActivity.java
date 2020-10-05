@@ -21,6 +21,9 @@ import truesolution.ledpad.asign.R;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
+/**
+ * The type Permission activity.
+ */
 @SuppressLint("NewApi")
 public class PermissionActivity extends AppCompatActivity {
 	private int REQUEST_PERMISSION_CODE = 0;
@@ -33,7 +36,10 @@ public class PermissionActivity extends AppCompatActivity {
 		MDEBUG.debug("onCreate!");
 		requestPermission();
 	}
-
+	
+	/**
+	 * Request permission.
+	 */
 	public void requestPermission() {
 		int bluetoothPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH);
 		int bluetoothAdminPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN);
@@ -105,7 +111,10 @@ public class PermissionActivity extends AppCompatActivity {
 			}
 		}
 	}
-
+	
+	/**
+	 * Start login activity.
+	 */
 	public void startLoginActivity() {
 		Intent intent = new Intent(PermissionActivity.this, IntroActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);

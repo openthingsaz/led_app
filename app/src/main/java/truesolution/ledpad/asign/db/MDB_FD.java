@@ -6,34 +6,77 @@ import truesolution.ledpad.asign.fd.FD_DRAW;
 /**
  * Created by TCH on 2020/07/10
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/10
+ * @since 2020 /07/10
  */
-
 public class MDB_FD {
+	/**
+	 * The constant CATEGORY_IDX_DATE.
+	 */
 	public static final int CATEGORY_IDX_DATE                   = 0;
+	/**
+	 * The constant CATEGORY_IDX_DRIVER.
+	 */
 	public static final int CATEGORY_IDX_DRIVER                 = 1;
+	/**
+	 * The constant CATEGORY_IDX_HOLIDAY.
+	 */
 	public static final int CATEGORY_IDX_HOLIDAY                = 2;
+	/**
+	 * The constant CATEGORY_IDX_WARNING.
+	 */
 	public static final int CATEGORY_IDX_WARNING                = 3;
+	/**
+	 * The constant CATEGORY_IDX_TEXT.
+	 */
 	public static final int CATEGORY_IDX_TEXT                   = 4;
 	
+	/**
+	 * The constant CATEGORY_IDX_C19.
+	 */
 	public static final int CATEGORY_IDX_C19                    = 5;
+	/**
+	 * The constant CATEGORY_IDX_SHOW.
+	 */
 	public static final int CATEGORY_IDX_SHOW                   = 6;
+	/**
+	 * The constant CATEGORY_IDX_NATION.
+	 */
 	public static final int CATEGORY_IDX_NATION                 = 7;
+	/**
+	 * The constant CATEGORY_IDX_ANIMAL.
+	 */
 	public static final int CATEGORY_IDX_ANIMAL                 = 8;
+	/**
+	 * The constant CATEGORY_IDX_SHOP.
+	 */
 	public static final int CATEGORY_IDX_SHOP                   = 9;
 	
+	/**
+	 * The constant CATEGORY_IDX_ANIMATION.
+	 */
 	public static final int CATEGORY_IDX_ANIMATION = 10;
+	/**
+	 * The constant CATEGORY_IDX_OTHER.
+	 */
 	public static final int CATEGORY_IDX_OTHER                  = 11;
+
+	public static final int CATEGORY_SIZE						= 12;
 	
-	// Default Category
+	/**
+	 * The constant MCATEGORY_TITLE.
+	 */
+// Default Category
 	public static final String[] MCATEGORY_TITLE = {
 			"데이트", "운전자", "홀리데이", "경고", "문자",
 			"코로나", "공연", "국가", "동물", "상점(푸드트럭)",
 			"에니메이션", "기타"
 	};
 	
+	/**
+	 * The constant MCATEGORY_TYPE.
+	 */
 	public static final int[] MCATEGORY_TYPE = {
 			CATEGORY_IDX_DATE, CATEGORY_IDX_DRIVER, CATEGORY_IDX_HOLIDAY, CATEGORY_IDX_WARNING, CATEGORY_IDX_TEXT,
 			
@@ -42,6 +85,9 @@ public class MDB_FD {
 			CATEGORY_IDX_ANIMATION, CATEGORY_IDX_OTHER
 	};
 	
+	/**
+	 * The constant MCATEGORY_RES_ID.
+	 */
 	public static final int[] MCATEGORY_RES_ID = {
 			R.drawable.cate_date,
 			R.drawable.cate_driver,
@@ -59,7 +105,10 @@ public class MDB_FD {
 			R.drawable.cate_default
 	};
 	
-	// Default Emoticon
+	/**
+	 * The constant MEMOTICON_NAME.
+	 */
+// Default Emoticon
 	public static final String[] MEMOTICON_NAME = {
 			// Date
 			"사랑해", "BTS Love", "널 사랑해", "Kiss",
@@ -90,6 +139,9 @@ public class MDB_FD {
 //			"스마일1", "스마일2", "스마일3", "스마일4"
 	};
 	
+	/**
+	 * The constant MEMOTICON_RES_ID.
+	 */
 	public static final int[] MEMOTICON_RES_ID = {
 			// Date
 			// "사랑해", "BTS Love", "널 사랑해", "Kiss",
@@ -134,23 +186,32 @@ public class MDB_FD {
 			R.drawable.ani_smile_1//, R.drawable.ani_smile_2, R.drawable.ani_smile_3, R.drawable.ani_smile_4
 	};
 	
+	/**
+	 * The constant MANIMATION_EMOTICON_LIST.
+	 */
 	public static final String[] MANIMATION_EMOTICON_LIST = {
-			((R.drawable.ani_coin_1) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_coin_2) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_coin_3) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_coin_4) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_coin_5)),
-			((R.drawable.ani_korea_map_1) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_korea_map_2) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_korea_map_3) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_korea_map_4) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_korea_map_5)),
-			((R.drawable.ani_smile_1) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_smile_2) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_smile_3) + FD_DRAW.SPLIT_TOKEN +
-					(R.drawable.ani_smile_4))
+			"ani_coin_1;ani_coin_2;ani_coin_3;ani_coin_4;ani_coin_5",
+			"ani_korea_map_1;ani_korea_map_2;ani_korea_map_3;ani_korea_map_4;ani_korea_map_5",
+			"ani_smile_1;ani_smile_2;ani_smile_3;ani_smile_4"
+//			((R.drawable.ani_coin_1) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_coin_2) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_coin_3) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_coin_4) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_coin_5)),
+//			((R.drawable.ani_korea_map_1) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_korea_map_2) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_korea_map_3) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_korea_map_4) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_korea_map_5)),
+//			((R.drawable.ani_smile_1) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_smile_2) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_smile_3) + FD_DRAW.SPLIT_TOKEN +
+//					(R.drawable.ani_smile_4))
 	};
 	
+	/**
+	 * The constant MEMOTICON_CATEGORY_TYPE.
+	 */
 	public static final int[] MEMOTICON_CATEGORY_TYPE = {
 			CATEGORY_IDX_DATE, CATEGORY_IDX_DATE, CATEGORY_IDX_DATE, CATEGORY_IDX_DATE,
 			

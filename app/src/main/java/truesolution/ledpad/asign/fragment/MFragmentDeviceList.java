@@ -24,22 +24,31 @@ import truesolution.ledpad.asign.share.MShared;
 /**
  * Created by TCH on 2020/07/07
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/07
+ * @since 2020 /07/07
  */
-
 public class MFragmentDeviceList extends Fragment {
 	private TextView tvBtnDeviceListTopMenuInfo;
 	private View mView;
 	private MainActivity mActivity;
 	private List<STR_BluetoothDevice> mList;
+	/**
+	 * The M address.
+	 */
+	public String mAddress = "";
 	
 	private TextView tvBtnBtScan, tvBtDeviceNone, tvBtName, tvBtAddress, tvBtnCheck;
 	private ListView llScanDeviceList;
 	private MBluetoothDeviceBaseAdapter mBluetoothDeviceBaseAdapter;
 	private LinearLayout llDeviceInfo;
 	
+	/**
+	 * Instantiates a new M fragment device list.
+	 *
+	 * @param _activity the activity
+	 * @param _list     the list
+	 */
 	public MFragmentDeviceList(MainActivity _activity, List<STR_BluetoothDevice> _list) {
 		mActivity = _activity;
 		mList = _list;
@@ -90,7 +99,8 @@ public class MFragmentDeviceList extends Fragment {
 		tvBtName = _view.findViewById(R.id.tvBtName);
 		tvBtAddress = _view.findViewById(R.id.tvBtAddress);
 		tvBtnCheck = _view.findViewById(R.id.tvBtnCheck);
-		tvBtnCheck.setSelected(true);
+		boolean _auto_st = MShared.mShared.mSP.getBoolean(MShared.KEY_BLE_AUTO_LOGIN, true);
+		tvBtnCheck.setSelected(_auto_st);
 		
 		tvBtnCheck.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -111,17 +121,41 @@ public class MFragmentDeviceList extends Fragment {
 //		mActivity.mShowProgress();
 	}
 	
+	/**
+	 * M update list.
+	 */
 	public void mUpdateList() {
 		mBluetoothDeviceBaseAdapter.notifyDataSetChanged();
 	}
 	
+	/**
+	 * M set device connect complete.
+	 *
+	 * @param _name    the name
+	 * @param _address the address
+	 */
 	public void mSetDeviceConnectComplete(String _name, String _address) {
+		mAddress = _address;
 		tvBtName.setText(_name);
 		tvBtAddress.setText(_address);
 		llDeviceInfo.setVisibility(View.VISIBLE);
 		tvBtDeviceNone.setVisibility(View.INVISIBLE);
+		
+		if(_address != null) {
+			for(int i = 0; i < mList.size(); i++) {
+				String __address = mList.get(i).mAddress;
+				if(__address != null && _address.equals(__address)) {
+					mList.remove(i);
+					mUpdateList();
+					break;
+				}
+			}
+		}
 	}
 	
+	/**
+	 * M set disconnect device.
+	 */
 	public void mSetDisconnectDevice() {
 		llDeviceInfo.setVisibility(View.INVISIBLE);
 		tvBtDeviceNone.setVisibility(View.VISIBLE);

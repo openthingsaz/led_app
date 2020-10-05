@@ -19,17 +19,21 @@ import truesolution.ledpad.asign.fragment.str.STR_GalleryCell;
 /**
  * Created by TCH on 2020/07/07
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/07
+ * @since 2020 /07/07
  */
-
 public class MFragmentInfo extends Fragment implements View.OnClickListener {
 	private View mView;
 	private Activity mActivity;
 	
 	private TextView tvBtnInfoBuy, tvBtnInfoCompany, tvBtnInfoUpdate;
 	
+	/**
+	 * Instantiates a new M fragment info.
+	 *
+	 * @param _activity the activity
+	 */
 	public MFragmentInfo(Activity _activity) {
 		mActivity = _activity;
 	}

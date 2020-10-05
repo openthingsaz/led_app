@@ -3,12 +3,14 @@ package truesolution.ledpad.asign.fd;
 /**
  * Created by TCH on 2020/07/21
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/21
+ * @since 2020 /07/21
  */
-
 public class FD_BT {
+	/**
+	 * The constant CRC16TAB.
+	 */
 	public static final int CRC16TAB[]= {
 			0x0000,0x1021,0x2042,0x3063,0x4084,0x50a5,0x60c6,0x70e7,
 			0x8108,0x9129,0xa14a,0xb16b,0xc18c,0xd1ad,0xe1ce,0xf1ef,
@@ -44,78 +46,277 @@ public class FD_BT {
 			0x6e17,0x7e36,0x4e55,0x5e74,0x2e93,0x3eb2,0x0ed1,0x1ef0
 	};
 	
+	/**
+	 * The constant STX.
+	 */
 	public static final byte STX                        = (byte)0x02;
+	/**
+	 * The constant ETX.
+	 */
 	public static final byte ETX                        = (byte)0x03;
+	/**
+	 * The constant SET_DRAW.
+	 */
 	public static final byte SET_DRAW                   = (byte)0x11;
+	/**
+	 * The constant SET_TEXT.
+	 */
 	public static final byte SET_TEXT                   = (byte)0x21;
+	/**
+	 * The constant SET_TEXT_ACTION.
+	 */
 	public static final byte SET_TEXT_ACTION            = (byte)0x22;
+	/**
+	 * The constant SET_SCR_CLEAR.
+	 */
 	public static final byte SET_SCR_CLEAR              = (byte)0x31;
+	/**
+	 * The constant SET_SCR_COLOR.
+	 */
 	public static final byte SET_SCR_COLOR              = (byte)0x41;
 	
+	/**
+	 * The constant SET_TEXT_EACH.
+	 */
 	public static final byte SET_TEXT_EACH              = (byte)0x51;
+	/**
+	 * The constant SET_TEXT_EACH_ACTION.
+	 */
 	public static final byte SET_TEXT_EACH_ACTION       = (byte)0x52;
 	
+	/**
+	 * The constant SAVE_TEXT.
+	 */
+	public static final byte SAVE_TEXT                  = (byte)0xa1;
+	/**
+	 * The constant SAVE_TEXT_ACTION.
+	 */
+	public static final byte SAVE_TEXT_ACTION           = (byte)(SAVE_TEXT + 1);
+	/**
+	 * The constant SAVE_COLOR_TEXT.
+	 */
+	public static final byte SAVE_COLOR_TEXT            = (byte)(SAVE_TEXT_ACTION + 1);
+	/**
+	 * The constant SAVE_COLOR_TEXT_ACTION.
+	 */
+	public static final byte SAVE_COLOR_TEXT_ACTION     = (byte)(SAVE_COLOR_TEXT + 1);
+	
+	/**
+	 * The constant SET_FIRM_UPDATE.
+	 */
 	public static final byte SET_FIRM_UPDATE            = (byte)0x61;
+	/**
+	 * The constant GET_FIRM_UPDATE.
+	 */
 	public static final byte GET_FIRM_UPDATE            = (byte)0x62;
 	
+	/**
+	 * The constant SET_PERFORM_MODE.
+	 */
+	public static final byte SET_PERFORM_MODE            = (byte)0x71;
 	
+	
+	/**
+	 * The constant CMD_ACT_LEFT_RIGHT.
+	 */
 	public static final byte CMD_ACT_LEFT_RIGHT         = (byte)0x01;
+	/**
+	 * The constant CMD_ACT_RIGHT_LEFT.
+	 */
 	public static final byte CMD_ACT_RIGHT_LEFT         = (byte)0x02;
+	/**
+	 * The constant CMD_ACT_TOP_DOWN.
+	 */
 	public static final byte CMD_ACT_TOP_DOWN           = (byte)0x03;
+	/**
+	 * The constant CMD_ACT_DOWN_TOP.
+	 */
 	public static final byte CMD_ACT_DOWN_TOP           = (byte)0x04;
+	/**
+	 * The constant CMD_ACT_BLINK.
+	 */
 	public static final byte CMD_ACT_BLINK              = (byte)0x05;
 	
+	/**
+	 * The constant SIZE_STX.
+	 */
 	public static final int SIZE_STX                    = 1;
+	/**
+	 * The constant SIZE_LEN1.
+	 */
 	public static final int SIZE_LEN1                   = 2;
+	/**
+	 * The constant SIZE_LEN2.
+	 */
 	public static final int SIZE_LEN2                   = 2;
+	/**
+	 * The constant SIZE_CMD.
+	 */
 	public static final int SIZE_CMD                    = 1;
+	/**
+	 * The constant SIZE_CRC.
+	 */
 	public static final int SIZE_CRC                    = 2;
+	/**
+	 * The constant SIZE_ETX.
+	 */
 	public static final int SIZE_ETX                    = 1;
+	/**
+	 * The constant SIZE_FIELD.
+	 */
 	public static final int SIZE_FIELD                  = 5;
+	/**
+	 * The constant SIZE_PAGE.
+	 */
 	public static final int SIZE_PAGE                   = 1;
+	/**
+	 * The constant SIZE_SET_DRAW_FIELD.
+	 */
 	public static final int SIZE_SET_DRAW_FIELD         = SIZE_FIELD + SIZE_PAGE + SIZE_LEN1;
+	/**
+	 * The constant SIZE_WIFI_SSID.
+	 */
 	public static final int SIZE_WIFI_SSID              = 1;
+	/**
+	 * The constant SIZE_WIFI_PW.
+	 */
 	public static final int SIZE_WIFI_PW                = 1;
+	/**
+	 * The constant SIZE_WIFI_STATUS.
+	 */
 	public static final int SIZE_WIFI_STATUS            = 1;
-	// STX + DataLength size(2byte fix) + Cmd + dataLen +  CRC + ETX
+	/**
+	 * The constant SIZE_PKT_DATA.
+	 */
+// STX + DataLength size(2byte fix) + Cmd + dataLen +  CRC + ETX
 	public static final int SIZE_PKT_DATA               =
 			SIZE_STX + SIZE_LEN1 + SIZE_LEN2 + SIZE_CMD + SIZE_CRC + SIZE_ETX;
-			// (1+ 2 + 1 + 2 + 1);
+	/**
+	 * The constant SIZE_FONT_BG_COLOR.
+	 */
+// (1+ 2 + 1 + 2 + 1);
 	// font color + screen color
 	public static final int SIZE_FONT_BG_COLOR = 6;
-	// page number size
+	/**
+	 * The constant SIZE_PAGE_NUM.
+	 */
+// page number size
 	public static final int SIZE_PAGE_NUM   	        = 1;
-	// Text Size
+	/**
+	 * The constant SIZE_TEXT_LEN.
+	 */
+// Text Size
 	public static final int SIZE_TEXT_LEN          	    = 1;
+	/**
+	 * The constant SIZE_FONT.
+	 */
 	public static final int SIZE_FONT             	    = 1;
+	/**
+	 * The constant SIZE_TEXT_COLOR.
+	 */
 	public static final int SIZE_TEXT_COLOR          	= 3;
-	// string length size
+	/**
+	 * The constant SIZE_STR_LEN.
+	 */
+// string length size
 	public static final int SIZE_STR_LEN	   	        = 1;
-	// data length size
+	/**
+	 * The constant SIZE_DATA_LEN.
+	 */
+// data length size
 	public static final int SIZE_DATA_LEN	   	        = 2;
-	// dot length size
+	/**
+	 * The constant DOT_LEN.
+	 */
+// dot length size
 	public static final int DOT_LEN	   	                = 2;
-	// Action(action, time)
+	/**
+	 * The constant SIZE_ACTION_TIME.
+	 */
+// Action(action, time)
 	public static final int SIZE_ACTION_TIME            = 3;
+	/**
+	 * The constant SIZE_PERFORM_ID.
+	 */
+	public static final int SIZE_PERFORM_ID             = 1;
+	/**
+	 * The constant SIZE_PERFORM_CHANNEL.
+	 */
+	public static final int SIZE_PERFORM_CHANNEL        = 1;
 	
+	
+	/**
+	 * The constant IDX_STX.
+	 */
 	public static final int IDX_STX                     = 0;
+	/**
+	 * The constant IDX_LEN.
+	 */
 	public static final int IDX_LEN                     = IDX_STX + SIZE_STX;
+	/**
+	 * The constant IDX_CMD.
+	 */
 	public static final int IDX_CMD                     = IDX_LEN + SIZE_LEN1 + SIZE_LEN2;
+	/**
+	 * The constant IDX_CRC.
+	 */
 	public static final int IDX_CRC                     = IDX_CMD + SIZE_CMD;
+	/**
+	 * The constant IDX_ETX.
+	 */
 	public static final int IDX_ETX                     = IDX_CRC + SIZE_CRC;
 	
-	// Multi Text
+	/**
+	 * The constant IDX_PERFORM_CHANNEL.
+	 */
+	public static final int IDX_PERFORM_CHANNEL         = 0;
+	/**
+	 * The constant IDX_PERFORM_ID.
+	 */
+	public static final int IDX_PERFORM_ID              = 1;
+	
+	/**
+	 * The constant SIZE_MULTI_TEXT_COLOR.
+	 */
+// Multi Text
 	public static final int SIZE_MULTI_TEXT_COLOR           = 3;
+	/**
+	 * The constant SIZE_MULTI_TEXT_FONT_SIZE.
+	 */
 	public static final int SIZE_MULTI_TEXT_FONT_SIZE       = 1;
+	/**
+	 * The constant SIZE_MULTI_TEXT_GROUP_COUNT.
+	 */
 	public static final int SIZE_MULTI_TEXT_GROUP_COUNT     = 1;
+	/**
+	 * The constant SIZE_MULTI_TEXT_PREFIX.
+	 */
 	public static final int SIZE_MULTI_TEXT_PREFIX          = SIZE_PAGE_NUM + SIZE_MULTI_TEXT_COLOR + SIZE_MULTI_TEXT_FONT_SIZE + SIZE_MULTI_TEXT_GROUP_COUNT;
 	
+	/**
+	 * The constant IDX_MULTI_TEXT_COLOR.
+	 */
 	public static final int IDX_MULTI_TEXT_COLOR                   = 0;
+	/**
+	 * The constant IDX_MULTI_TEXT_FONT_SIZE.
+	 */
 	public static final int IDX_MULTI_TEXT_FONT_SIZE               = 3;
+	/**
+	 * The constant IDX_MULTI_TEXT_GROUP_CNT.
+	 */
 	public static final int IDX_MULTI_TEXT_GROUP_CNT               = 4;
 	
+	/**
+	 * The constant ACTION_TIME.
+	 */
 	public static final int ACTION_TIME                 = 1000;
 	
+	/**
+	 * The constant STATUS_DISCONNECT.
+	 */
 	public static final int STATUS_DISCONNECT           = 0;
+	/**
+	 * The constant STATUS_CONNECT.
+	 */
 	public static final int STATUS_CONNECT              = 1;
 }

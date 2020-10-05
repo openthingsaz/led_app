@@ -13,16 +13,19 @@ import java.util.List;
 import truesolution.ledpad.asign.MDEBUG;
 import truesolution.ledpad.asign.R;
 import truesolution.ledpad.asign.app.MAPP;
+import truesolution.ledpad.asign.db.MDB_FD;
 import truesolution.ledpad.asign.db.MD_Category;
+import truesolution.ledpad.asign.fd.FD_ASSETS;
+import truesolution.ledpad.asign.fd.FD_DRAW;
+import truesolution.ledpad.asign.fd.FD_FILE;
 
 /**
  * Created by TCH on 2020/07/10
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/10
+ * @since 2020 /07/10
  */
-
 public class MCategoryListBaseAdapter extends BaseAdapter implements View.OnClickListener {
 	private final Context mContext;
 	private int mPosition = MAPP.ERROR_;
@@ -30,6 +33,12 @@ public class MCategoryListBaseAdapter extends BaseAdapter implements View.OnClic
 	private List<ViewHolder> mVHList = new ArrayList<>();
 	private List<Boolean> mCheckList = new ArrayList<>();
 	
+	/**
+	 * Instantiates a new M category list base adapter.
+	 *
+	 * @param context the context
+	 * @param _list   the list
+	 */
 	public MCategoryListBaseAdapter(Context context, List<MD_Category> _list) {
 		this.mContext = context;
 		mList = _list;
@@ -39,6 +48,13 @@ public class MCategoryListBaseAdapter extends BaseAdapter implements View.OnClic
 		}
 	}
 	
+	/**
+	 * M get cell data md category.
+	 *
+	 * @param _pos the pos
+	 *
+	 * @return the md category
+	 */
 	public MD_Category mGetCellData(int _pos) {
 		if(_pos >= mList.size()) {
 			return null;
@@ -47,6 +63,11 @@ public class MCategoryListBaseAdapter extends BaseAdapter implements View.OnClic
 		return mList.get(_pos);
 	};
 	
+	/**
+	 * M update data and view.
+	 *
+	 * @param _list the list
+	 */
 	public void mUpdateDataAndView(List<MD_Category> _list) {
 		mList = _list;
 		mPosition = MAPP.ERROR_;
@@ -60,12 +81,33 @@ public class MCategoryListBaseAdapter extends BaseAdapter implements View.OnClic
 		notifyDataSetChanged();
 	}
 	
+	/**
+	 * M get position int.
+	 *
+	 * @return the int
+	 */
 	public int mGetPosition() {
 		return mPosition;
 	}
 	
+	/**
+	 * M get category idx int.
+	 *
+	 * @param _pos the pos
+	 *
+	 * @return the int
+	 */
 	public int mGetCategoryIdx(int _pos) {
-		return mList.get(_pos).idx_;
+		MDEBUG.debug("mList.get(" + _pos + ").idx_ : " + mList.get(_pos).idx_);
+		MDEBUG.debug("mList.get(" + _pos + ").mSubIdx : " + mList.get(_pos).mSubIdx);
+//		if(mList.get(_pos).mSubIdx)
+
+		int _idx = mList.get(_pos).idx_;
+
+		if(_idx <= MDB_FD.CATEGORY_SIZE) {
+			return mList.get(_pos).mSubIdx;
+		} else
+			return mList.get(_pos).idx_;
 	}
 	
 	@Override
@@ -150,9 +192,21 @@ public class MCategoryListBaseAdapter extends BaseAdapter implements View.OnClic
 		}
 	}
 	
+	/**
+	 * The type View holder.
+	 */
 	public static class ViewHolder {
+		/**
+		 * The M str.
+		 */
 		public MD_Category mStr;
+		/**
+		 * The M position.
+		 */
 		public int mPosition;
+		/**
+		 * The Tv name.
+		 */
 		public TextView tvName;
 	}
 }

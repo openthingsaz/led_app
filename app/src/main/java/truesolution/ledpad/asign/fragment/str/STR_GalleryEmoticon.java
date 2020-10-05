@@ -7,29 +7,71 @@ import truesolution.ledpad.asign.db.MD_Emoticon;
 /**
  * Created by TCH on 2020. 07. 01.
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @since 2020. 07. 01.
  */
 public class STR_GalleryEmoticon {
+	/**
+	 * The M idx.
+	 */
 	public int mIDX;
+	/**
+	 * The M name.
+	 */
 	public String mName;
+	/**
+	 * The M catergory idx.
+	 */
 	public int mCatergoryIdx;
+	/**
+	 * The M catergory name.
+	 */
 	public String mCatergoryName;
+	/**
+	 * The M is one emoticon.
+	 */
 	public boolean mIsOneEmoticon;
+	/**
+	 * The M emoticon files path.
+	 */
 	public String mEmoticonFilesPath;
+	/**
+	 * The M image res id.
+	 */
 	public int mImageResID;
+	/**
+	 * The M is local data.
+	 */
 	public boolean mIsLocalData;
+	/**
+	 * The M is favorite.
+	 */
 	public boolean mIsFavorite;
+	/**
+	 * The M description.
+	 */
 	public String mDescription;
+	/**
+	 * The M date.
+	 */
 	public long mDate;
 	
+	/**
+	 * The M is info layout show.
+	 */
 	public boolean mIsInfoLayoutShow = true;
 	
+	/**
+	 * Instantiates a new Str gallery emoticon.
+	 */
 	public STR_GalleryEmoticon() {
 		mInit();
 	}
 	
+	/**
+	 * M init.
+	 */
 	public void mInit() {
 		mIDX = MAPP.ERROR_;
 		mName = "";
@@ -46,8 +88,9 @@ public class STR_GalleryEmoticon {
 	}
 	
 	/**
+	 * M set data.
 	 *
-	 * @param _str
+	 * @param _str the str
 	 */
 	public void mSetData(STR_GalleryEmoticon _str) {
 		mSetData(_str.mIDX, _str.mName,
@@ -57,18 +100,19 @@ public class STR_GalleryEmoticon {
 	}
 	
 	/**
+	 * M set data.
 	 *
-	 * @param _idx
-	 * @param _name
-	 * @param _category_idx
-	 * @param _category_name
-	 * @param _is_one_emoticon
-	 * @param _emoticon_files_path
-	 * @param _res_id
-	 * @param _is_local_data
-	 * @param _is_favorite
-	 * @param _descrition
-	 * @param _date
+	 * @param _idx                 the idx
+	 * @param _name                the name
+	 * @param _category_idx        the category idx
+	 * @param _category_name       the category name
+	 * @param _is_one_emoticon     the is one emoticon
+	 * @param _emoticon_files_path the emoticon files path
+	 * @param _res_id              the res id
+	 * @param _is_local_data       the is local data
+	 * @param _is_favorite         the is favorite
+	 * @param _descrition          the descrition
+	 * @param _date                the date
 	 */
 	public void mSetData(int _idx, String _name,
 	                     int _category_idx, String _category_name,

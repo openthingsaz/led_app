@@ -26,10 +26,21 @@
         android:layout_marginRight="20dp" >
 
         <TextView
+            android:id="@+id/tvBtnSave"
+            android:textAppearance="@style/MainMenuSubTitleText"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/c_white"
+            android:gravity="center"
+            android:text="@string/text_save"
+            android:background="@drawable/selector_search_bar" />
+
+        <TextView
             android:id="@+id/tvBtnPlay"
             android:textAppearance="@style/TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvBtnSave"
             android:layout_marginLeft="15dp"
             android:background="@drawable/selector_draw_menu_top_play" />
     </RelativeLayout>

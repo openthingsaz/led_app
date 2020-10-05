@@ -3,13 +3,18 @@ package truesolution.ledpad.asign.fd;
 /**
  * Created by TCH on 2020/08/08
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/08/08
+ * @since 2020 /08/08
  */
-
 public class FD_ASSETS {
+	/**
+	 * The constant MFILE_FORMAT.
+	 */
 	public static final String MFILE_FORMAT         = ".png";
+	/**
+	 * The constant MEMOTICON_FILE_NAME.
+	 */
 	public static final String[] MEMOTICON_FILE_NAME = {
 			// Date
 			// "사랑해", "BTS Love", "널 사랑해", "Kiss",
@@ -53,4 +58,5 @@ public class FD_ASSETS {
 			"ani_korea_map_1", "ani_korea_map_2", "ani_korea_map_3", "ani_korea_map_4", "ani_korea_map_5",
 			"ani_smile_1", "ani_smile_2", "ani_smile_3", "ani_smile_4"
 	};
+	
 }

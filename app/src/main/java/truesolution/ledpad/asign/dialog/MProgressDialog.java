@@ -16,32 +16,79 @@ import truesolution.ledpad.asign.R;
 /**
  * MProgressDialog
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @since 2020. 07. 01.
  */
 public class MProgressDialog extends Dialog {
+	/**
+	 * Instantiates a new M progress dialog.
+	 *
+	 * @param context the context
+	 */
 	public MProgressDialog(Context context) {
 		super(context);
 	}
 	
+	/**
+	 * Show m progress dialog.
+	 *
+	 * @param _context the context
+	 * @param _title   the title
+	 * @param _message the message
+	 *
+	 * @return the m progress dialog
+	 */
 	public static MProgressDialog show(Context _context,
                                        CharSequence _title, CharSequence _message) {
 		return show(_context, _title, _message, false);
 	}
 	
+	/**
+	 * Show m progress dialog.
+	 *
+	 * @param _context       the context
+	 * @param _title         the title
+	 * @param _message       the message
+	 * @param _indeterminate the indeterminate
+	 *
+	 * @return the m progress dialog
+	 */
 	public static MProgressDialog show(Context _context,
                                        CharSequence _title, CharSequence _message,
                                        boolean _indeterminate) {
 		return show(_context, _title, _message, _indeterminate, false, null);
 	}
 	
+	/**
+	 * Show m progress dialog.
+	 *
+	 * @param _context       the context
+	 * @param _title         the title
+	 * @param _message       the message
+	 * @param _indeterminate the indeterminate
+	 * @param _cancelable    the cancelable
+	 *
+	 * @return the m progress dialog
+	 */
 	public static MProgressDialog show(Context _context,
                                        CharSequence _title, CharSequence _message,
                                        boolean _indeterminate, boolean _cancelable) {
 		return show(_context, _title, _message, _indeterminate, _cancelable, null);
 	}
 	
+	/**
+	 * Show m progress dialog.
+	 *
+	 * @param _context        the context
+	 * @param _title          the title
+	 * @param _message        the message
+	 * @param _indeterminate  the indeterminate
+	 * @param _cancelable     the cancelable
+	 * @param _cancelListener the cancel listener
+	 *
+	 * @return the m progress dialog
+	 */
 	public static MProgressDialog show(Context _context, CharSequence _title,
                                        CharSequence _message, boolean _indeterminate,
                                        boolean _cancelable, OnCancelListener _cancelListener) {
@@ -91,7 +138,10 @@ public class MProgressDialog extends Dialog {
 //		mHideSystemUI();
 	}
 	
-	// This snippet hides the system bars.
+	/**
+	 * M hide system ui.
+	 */
+// This snippet hides the system bars.
 	public void mHideSystemUI() {
 		getWindow().getDecorView().setSystemUiVisibility(
 				View.SYSTEM_UI_FLAG_LAYOUT_STABLE

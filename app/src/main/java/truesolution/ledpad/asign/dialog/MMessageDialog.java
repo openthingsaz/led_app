@@ -11,11 +11,10 @@ import truesolution.ledpad.asign.R;
 /**
  * MMessageDialog
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @since 2020. 07. 01.
  */
-
 public abstract class MMessageDialog {
 	/**
 	 * Yes Event
@@ -37,6 +36,11 @@ public abstract class MMessageDialog {
 	 */
 	private Context mContext;
 	
+	/**
+	 * Instantiates a new M message dialog.
+	 *
+	 * @param context the context
+	 */
 	public MMessageDialog(Context context) {
 		mContext = context;
 	}
@@ -44,12 +48,12 @@ public abstract class MMessageDialog {
 	/**
 	 * mMessageShow
 	 *
-	 * @author think.code.help@gmail.com
+	 * @param _msg       the msg
+	 * @param _is_cancel the is cancel
+	 *
+	 * @author think.code.help @gmail.com
 	 * @version 1.0
 	 * @since 2020. 07. 01.
-	 *
-	 * @param _msg
-	 * @param _is_cancel
 	 */
 	public void mShow(String _msg, boolean _is_cancel) {
 		/**

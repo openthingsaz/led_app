@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -45,9 +44,11 @@ import butterknife.OnClick;
 import truesolution.ledpad.asign.app.MAPP;
 import truesolution.ledpad.asign.async.CategoryAddDBDataAsyncTask;
 import truesolution.ledpad.asign.async.CategoryDeleteDBDataAsyncTask;
+import truesolution.ledpad.asign.async.EmoticonDeleteDBDataAsyncTask;
 import truesolution.ledpad.asign.async.LoadRoomDBDataAsyncTask;
 import truesolution.ledpad.asign.db.MAppDatabase;
 import truesolution.ledpad.asign.db.MDB;
+import truesolution.ledpad.asign.db.MDB_FD;
 import truesolution.ledpad.asign.db.MD_Category;
 import truesolution.ledpad.asign.db.MD_Emoticon;
 import truesolution.ledpad.asign.dialog.MCategoryAddDialog;
@@ -72,17 +73,38 @@ import truesolution.ledpad.asign.utils.Utils;
 import truesolution.ledpad.asign.view.MSwipeViewPager;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends MBaseActivity {
+	/**
+	 * The Btn bottom menu device list.
+	 */
 	@BindView(R.id.tvBtnBottomMenuDeviceList)
 	TextView btnBottomMenuDeviceList;
+	/**
+	 * The Btn bottom menu gallery.
+	 */
 	@BindView(R.id.tvBtnBottomMenuGallery)
 	TextView btnBottomMenuGallery;
+	/**
+	 * The Btn bottom menu draw.
+	 */
 	@BindView(R.id.tvBtnBottomMenuDraw)
 	TextView btnBottomMenuDraw;
+	/**
+	 * The Btn bottom menu show mode.
+	 */
 	@BindView(R.id.tvBtnBottomMenuShowMode)
 	TextView btnBottomMenuShowMode;
+	/**
+	 * The Vp main.
+	 */
 	@BindView(R.id.vpMain)
 	MSwipeViewPager vpMain;
+	/**
+	 * The Tv btn bottom menu text.
+	 */
 	@BindView(R.id.tvBtnBottomMenuText)
 	TextView tvBtnBottomMenuText;
 	
@@ -93,7 +115,30 @@ public class MainActivity extends MBaseActivity {
 	
 	// ViewPager
 	private MPagerAdapter mPagerAdapter;
-	public Fragment mFragmentDeviceList, mFragmentGallery, mFragmentDraw, mFragmentText, mFragmentInfo, mFragmentShowMode;
+	/**
+	 * The M fragment device list.
+	 */
+	public Fragment mFragmentDeviceList,
+	/**
+	 * The M fragment gallery.
+	 */
+	mFragmentGallery,
+	/**
+	 * The M fragment draw.
+	 */
+	mFragmentDraw,
+	/**
+	 * The M fragment text.
+	 */
+	mFragmentText,
+	/**
+	 * The M fragment info.
+	 */
+	mFragmentInfo,
+	/**
+	 * The M fragment show mode.
+	 */
+	mFragmentShowMode;
 	
 	private List<MD_Category> mCategoryList = new ArrayList<>();
 	private List<MD_Emoticon> mEmoticonList = new ArrayList<>();
@@ -101,7 +146,13 @@ public class MainActivity extends MBaseActivity {
 	
 	// Bluetooth
 	private BluetoothAdapter mBtAdapter;
+	/**
+	 * The constant mBtSpp.
+	 */
 	public static BluetoothSPP mBtSpp;
+	/**
+	 * The M is bt connect.
+	 */
 	public boolean mIsBtConnect = false;
 	private List<STR_BluetoothDevice> mBtDeviceList = new ArrayList<>();
 	private Set<BluetoothDevice> mPairedDevices;
@@ -109,17 +160,39 @@ public class MainActivity extends MBaseActivity {
 	// Context
 	private Context mContext;
 	
-	// Category Dialog
+	/**
+	 * The M category add dialog.
+	 */
+// Category Dialog
 	public MMCategoryAddDialog mCategoryAddDialog;
 	
-	// Emoticon Dialog
+	/**
+	 * The M emoticon add dialog.
+	 */
+// Emoticon Dialog
 	public MMEmoticonAddDialog mEmoticonAddDialog;
 	
-	// File Save Index
+	/**
+	 * The M save file index.
+	 */
+// File Save Index
 	public int mSaveFileIndex = MAPP.INIT_;
+	/**
+	 * The M save emoticon file list.
+	 */
+	public ArrayList<String> mSaveEmoticonFileList = new ArrayList<>();
 	
+	/**
+	 * The constant POPUP_COLOR_SETTING_DRAW.
+	 */
 	public static final int POPUP_COLOR_SETTING_DRAW              = 0;
+	/**
+	 * The constant POPUP_COLOR_SETTING_TEXT.
+	 */
 	public static final int POPUP_COLOR_SETTING_TEXT              = 1;
+	/**
+	 * The constant POPUP_COLOR_SETTING_TEXT_BG.
+	 */
 	public static final int POPUP_COLOR_SETTING_TEXT_BG           = 2;
 	
 	/**
@@ -197,6 +270,9 @@ public class MainActivity extends MBaseActivity {
 		
 		mContext = this;
 		
+		MShared.mGetInstance(getApplication());
+		MShared.mShared.mLoadDeviceInfo();
+		
 		mPagerAdapter = new MMPagerAdapter(getSupportFragmentManager(), 0, this);
 		vpMain.setAdapter(mPagerAdapter);
 		
@@ -219,6 +295,11 @@ public class MainActivity extends MBaseActivity {
 		super.onResume();
 	}
 	
+	/**
+	 * On view clicked.
+	 *
+	 * @param view the view
+	 */
 	@OnClick({R.id.tvBtnBottomMenuDeviceList, R.id.tvBtnBottomMenuGallery, R.id.tvBtnBottomMenuDraw, R.id.tvBtnBottomMenuText, R.id.tvBtnBottomMenuShowMode})
 	public void onViewClicked(View view) {
 		switch(view.getId()) {
@@ -228,11 +309,13 @@ public class MainActivity extends MBaseActivity {
 				vpMain.setCurrentItem(FD_MENU.DEVICE_LIST);
 				break;
 			case R.id.tvBtnBottomMenuGallery:
+				screen_clear();
 				mBottomMenuReset();
 				btnBottomMenuGallery.setSelected(true);
 				vpMain.setCurrentItem(FD_MENU.GALLERY_);
 				break;
 			case R.id.tvBtnBottomMenuDraw:
+				screen_clear();
 				mBottomMenuReset();
 				btnBottomMenuDraw.setSelected(true);
 				vpMain.setCurrentItem(FD_MENU.DRAW_);
@@ -262,9 +345,11 @@ public class MainActivity extends MBaseActivity {
 	
 	private class MMPagerAdapter extends MPagerAdapter {
 		/**
+		 * Instantiates a new Mm pager adapter.
+		 *
 		 * @param fm       fragment manager that will interact with this adapter
 		 * @param behavior determines if only current fragments are in a resumed state
-		 * @param _context
+		 * @param _context the context
 		 */
 		public MMPagerAdapter(@NonNull FragmentManager fm, int behavior, Context _context) {
 			super(fm, behavior, _context);
@@ -279,7 +364,7 @@ public class MainActivity extends MBaseActivity {
 				return mFragmentDeviceList;
 			} else if(position == FD_MENU.GALLERY_) {
 				if(mFragmentGallery == null)
-					mFragmentGallery = new MFragmentGallery(MainActivity.this, mStrGalleryList);
+					mFragmentGallery = new MFragmentGallery(MainActivity.this, mFileDirPath, mStrGalleryList);
 				return mFragmentGallery;
 			} else if(position == FD_MENU.DRAW_) {
 				if(mFragmentDraw == null)
@@ -299,6 +384,13 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * M view pager draw move and data update.
+	 *
+	 * @param _color_data the color data
+	 * @param _w          the w
+	 * @param _h          the h
+	 */
 	public void mViewPagerDrawMoveAndDataUpdate(int[] _color_data, int _w, int _h) {
 		mViewPagerCurrentPage(FD_MENU.DRAW_);
 		mShowProgress();
@@ -306,13 +398,20 @@ public class MainActivity extends MBaseActivity {
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				MDEBUG.debug("cancel mViewPagerDrawMoveAndDataUpdate!");
+				MDEBUG.debug("cancel mViewPagerDrawMoveAndDataUpdate _w : " + ", _h : " + _h);
+				((MFragmentDraw) mFragmentDraw).mUpdateColors(_color_data, _w, _h);
 				mCancelProgress();
-				((MFragmentDraw) mFragmentDraw).mFreeDrawView.mSetAllColor(_color_data, _w, _h);
 			}
-		}, FD_DELAY.DATA_UPDATE);
+		}, FD_DELAY.DRAW_PIXEL_UPDATE);
 	}
 	
+	/**
+	 * M view pager draw move and data update.
+	 *
+	 * @param _list the list
+	 * @param _w    the w
+	 * @param _h    the h
+	 */
 	public void mViewPagerDrawMoveAndDataUpdate(List<int[]> _list, int _w, int _h) {
 		mViewPagerCurrentPage(FD_MENU.DRAW_);
 		mShowProgress();
@@ -321,13 +420,18 @@ public class MainActivity extends MBaseActivity {
 			@Override
 			public void run() {
 				MDEBUG.debug("cancel mViewPagerDrawMoveAndDataUpdate!");
+				((MFragmentDraw) mFragmentDraw).mSetAllPageColor(_list, _w, _h);
 				mCancelProgress();
-//				((MFragmentDraw) mFragmentDraw).mFreeDrawView.mSetAllColor(_color_data, _w, _h);
 			}
-		}, FD_DELAY.DATA_UPDATE);
+		}, FD_DELAY.DRAW_PIXEL_UPDATE);
 	}
 	
-	// Current Page
+	/**
+	 * M view pager current page.
+	 *
+	 * @param _idx the idx
+	 */
+// Current Page
 	public void mViewPagerCurrentPage(int _idx) {
 		if(vpMain == null)
 			return;
@@ -354,12 +458,21 @@ public class MainActivity extends MBaseActivity {
 		vpMain.setCurrentItem(_idx);
 	}
 	
+	/**
+	 * M go info activity.
+	 */
 	public void mGoInfoActivity() {
 		Intent _intent = new Intent(this, InfoActivity.class);
 		startActivity(_intent);
 	}
 	
 	private class MInitLoadRoomDBDataAsyncTask extends LoadRoomDBDataAsyncTask {
+		/**
+		 * Instantiates a new M init load room db data async task.
+		 *
+		 * @param _activity the activity
+		 * @param _md       the md
+		 */
 		public MInitLoadRoomDBDataAsyncTask(Activity _activity, MAppDatabase _md) {
 			super(_activity, _md);
 		}
@@ -368,17 +481,17 @@ public class MainActivity extends MBaseActivity {
 		public void mResult(List<MD_Category> _c_list, List<MD_Emoticon> _e_list) {
 			mSetGalleryListData(_c_list, _e_list);
 			
-			if(MShared.strBle.mName == null)
+//			if(MShared.strBle.mName == null || !MShared.strBle.mIsAutoConnect)
 				mViewPagerCurrentPage(FD_MENU.DEVICE_LIST);
-			else {
-				if(MShared.strBle.mAddress.length() > MAPP.NONE_) {
-					mShowProgress();
-					if(mFragmentDeviceList == null) {
-						mFragmentDeviceList = new MFragmentDeviceList(MainActivity.this, mBtDeviceList);
-					}
-					mBtConnect(MShared.strBle.mAddress);
-				}
-			}
+//			else {
+//				if(MShared.strBle.mAddress.length() > MAPP.NONE_) {
+//					mShowProgress();
+//					if(mFragmentDeviceList == null) {
+//						mFragmentDeviceList = new MFragmentDeviceList(MainActivity.this, mBtDeviceList);
+//					}
+//					mBtConnect(MShared.strBle.mAddress);
+//				}
+//			}
 		}
 	}
 	
@@ -387,28 +500,17 @@ public class MainActivity extends MBaseActivity {
 		super.onActivityResult(requestCode, resCode, data);
 		
 		if(resCode == Activity.RESULT_OK && data != null) {
-			String _realPath;
-			// SDK < API11
-			if(Build.VERSION.SDK_INT < 11) {
-				_realPath = Utils.getRealPathFromURI_BelowAPI11(this, data.getData());
-			}
-			// SDK >= 11 && SDK < 19
-			else if(Build.VERSION.SDK_INT < 19) {
-				_realPath = Utils.getRealPathFromURI_API11to18(this, data.getData());
-			}
-			// SDK > 19 (Android 4.4)
-			else {
-				_realPath = Utils.getRealPathFromURI_API19(this, data.getData());
-			}
+			String _realPath = Utils.getRealPath(this, data.getData());
 			
 			MDEBUG.debug("onActivityResult Image Path : " + _realPath);
 			try {
 				File _file = new File(_realPath);
+				long _size = _file.getAbsoluteFile().length();
+				MDEBUG.debug("onActivityResult _size : " + _size);
 				Uri _uri = FileProvider.getUriForFile(MainActivity.this, getPackageName(), _file);
 				Bitmap _bm = Utils.mGetBitmapFromUri(MainActivity.this, _file.getAbsolutePath(), _uri,
-						((MFragmentDraw)mFragmentDraw).mGetCellW(), ((MFragmentDraw)mFragmentDraw).mGetCellH());
+						((MFragmentDraw)mFragmentDraw).mGetCellW(), ((MFragmentDraw)mFragmentDraw).mGetCellH(), _size);
 				if(_bm != null) {
-					MDEBUG.debug("img w : " + _bm.getWidth());
 					int[] _src = new int[_bm.getWidth() * _bm.getHeight()];
 					_bm.getPixels(_src, 0, _bm.getWidth(), 0, 0, _bm.getWidth(), _bm.getHeight());
 					
@@ -420,6 +522,11 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * M go color setting dialog.
+	 *
+	 * @param _st the st
+	 */
 	public void mGoColorSettingDialog(int _st) {
 		AmbilWarnaDialog colorPicker = null;
 		
@@ -463,6 +570,13 @@ public class MainActivity extends MBaseActivity {
 		colorPicker.show();
 	}
 	
+	/**
+	 * M show preview dialog.
+	 *
+	 * @param _data the data
+	 * @param _w    the w
+	 * @param _h    the h
+	 */
 	public void mShowPreviewDialog(int[][] _data, int _w, int _h) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 		LayoutInflater inflater = getLayoutInflater();
@@ -485,22 +599,37 @@ public class MainActivity extends MBaseActivity {
 		dialog.show();
 	}
 	
+	/**
+	 * M show preview dialog.
+	 *
+	 * @param _data the data
+	 * @param _w    the w
+	 * @param _h    the h
+	 */
 	public void mShowPreviewDialog(int[] _data, int _w, int _h) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-		LayoutInflater inflater = getLayoutInflater();
-		View view = inflater.inflate(R.layout.layout_preview_dialog, null);
-		ImageView _iv = view.findViewById(R.id.ivPreviewImg);
-		MDEBUG.debug("_data.length : " + _data.length);
-		Bitmap _bm = Bitmap.createBitmap(_data, _w, _h, Bitmap.Config.ARGB_8888);
-		_iv.setImageBitmap(_bm);
-		builder.setView(view);
-		
-		final AlertDialog dialog = builder.create();
-		dialog.setCancelable(true);
-		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-		dialog.show();
+		if(_data == null) {
+			mShowMessageDialog(R.string.pop_msg_local_img_load_error, false);
+		} else {
+			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+			LayoutInflater inflater = getLayoutInflater();
+			View view = inflater.inflate(R.layout.layout_preview_dialog, null);
+			ImageView _iv = view.findViewById(R.id.ivPreviewImg);
+			Bitmap _bm = Bitmap.createBitmap(_data, _w, _h, Bitmap.Config.ARGB_8888);
+			_iv.setImageBitmap(_bm);
+			builder.setView(view);
+			
+			final AlertDialog dialog = builder.create();
+			dialog.setCancelable(true);
+			dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+			dialog.show();
+		}
 	}
 	
+	/**
+	 * M keyboard hide.
+	 *
+	 * @param _et the et
+	 */
 	public void mKeyboardHide(EditText _et) {
 		InputMethodManager inputMethodManager =
 				(InputMethodManager) getSystemService(
@@ -532,8 +661,9 @@ public class MainActivity extends MBaseActivity {
 					_str.mName = device.getName();
 					_str.mAddress = device.getAddress();
 					boolean _is_update = true;
+					String _address = ((MFragmentDeviceList)mFragmentDeviceList).mAddress;
 					for(int i = 0; i < mBtDeviceList.size(); i++) {
-						if(mBtDeviceList.get(i).mAddress.equals(_str.mAddress)) {
+						if(mBtDeviceList.get(i).mAddress.equals(_str.mAddress) || _str.mAddress.equals(_address)) {
 							_is_update = false;
 							return;
 						}
@@ -568,6 +698,9 @@ public class MainActivity extends MBaseActivity {
 		}
 	};
 	
+	/**
+	 * M bt scan.
+	 */
 	public void mBtScan() {
 		mShowProgress();
 		mBtDeviceList.clear();
@@ -585,6 +718,9 @@ public class MainActivity extends MBaseActivity {
 		}, FD_DELAY.BT_SCAN_TIMEOUT);
 	}
 	
+	/**
+	 * M bt init.
+	 */
 	public void mBtInit() {
 		// Register for broadcasts when a device is discovered
 		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -644,11 +780,25 @@ public class MainActivity extends MBaseActivity {
 				mBtSpp.cancelDiscovery();
 				mBtSpp.disconnect();
 				mBtDeviceList.clear();
+				((MFragmentDeviceList)mFragmentDeviceList).mAddress = "";
+				
+				// Get the local Bluetooth adapter
+				mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+				// Get a set of currently paired devices
+				mPairedDevices = mBtAdapter.getBondedDevices();
+				// If there are paired devices, add each one to the ArrayAdapter
+				if(mPairedDevices.size() > 0) {
+					for(BluetoothDevice device : mPairedDevices) {
+						STR_BluetoothDevice _str = new STR_BluetoothDevice();
+						_str.mName = device.getName();
+						_str.mAddress = device.getAddress();
+						mBtDeviceList.add(_str);
+					}
+				}
 				
 				mHandler.postDelayed(new Runnable() {
                      @Override
                      public void run() {
-	                     mBtDeviceList.clear();
 	                     ((MFragmentDeviceList)mFragmentDeviceList).mSetDisconnectDevice();
 	                     
 	                     mShowMessageDialog(R.string.txt_bt_disconnect, false);
@@ -674,21 +824,58 @@ public class MainActivity extends MBaseActivity {
 		});
 	}
 	
+	/**
+	 * M bt connect.
+	 *
+	 * @param _address the address
+	 */
 	public void mBtConnect(String _address) {
 		mShowProgress();
 		mBtSpp.connect(_address);
 	}
 	
+	/**
+	 * Screen clear.
+	 */
 	public void screen_clear() {
-		MBluetoothUtils.transmit_data(mBtSpp, FD_BT.SET_SCR_CLEAR);
+		if(mBtSpp != null && mIsBtConnect)
+			MBluetoothUtils.transmit_data(mBtSpp, FD_BT.SET_SCR_CLEAR);
 	}
 	
 	private class MSendStepByStepDotDataAsyncTask extends AsyncTask<Void, Void, Void> {
+		/**
+		 * The M idx.
+		 */
 		int mIDX;
+		/**
+		 * The M next idx.
+		 */
 		int mNextIdx;
+		/**
+		 * The M buf.
+		 */
 		int[] mBuf;
-		int mW, mH;
+		/**
+		 * The M w.
+		 */
+		int mW,
+		/**
+		 * The M h.
+		 */
+		mH;
+		/**
+		 * The M send data.
+		 */
 		MBluetoothUtils.SendDataClass mSendData;
+		
+		/**
+		 * Instantiates a new M send step by step dot data async task.
+		 *
+		 * @param _w   the w
+		 * @param _h   the h
+		 * @param _idx the idx
+		 * @param _buf the buf
+		 */
 		public MSendStepByStepDotDataAsyncTask(int _w, int _h, int _idx, int[] _buf) {
 			mW = _w;
 			mH = _h;
@@ -740,35 +927,86 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
-	public void mSetAllDotDataSend(int _w, int _h, int[][] _in_colors) {
-		// mShowProgress();
-		MBluetoothUtils.send_all_dot(mBtSpp, _w, _h, _in_colors);
-		
-//		int[] _colors = new int[_w * _h];
-//		for(int y = 0; y < _h; y++) {
-//			for(int x = 0; x < _w; x++) {
-//				_colors[(y * _w) + x] = _in_colors[x][y];
-//			}
-//		}
-//		new MSendStepByStepDotDataAsyncTask(_w, _h, 0, _colors).execute();
+	/**
+	 * M set all dot data send.
+	 *
+	 * @param _w         the w
+	 * @param _h         the h
+	 * @param _in_colors the in colors
+	 * @param _idx       the idx
+	 */
+	public void mSetAllDotDataSend(int _w, int _h, int[][] _in_colors, int _idx) {
+		if(_in_colors != null)
+			MDEBUG.debug("_in_colors : " + _in_colors.length);
+		new MSendAllDotDataForDeviceAsyncTask(_w, _h, _in_colors, 0, 0, _idx).execute();
 	}
 	
+	// TODO MAX Count
 	private int mMaxCount = 30;
+	
+	/**
+	 * The type M send all dot data for device async task.
+	 */
 	public class MSendAllDotDataForDeviceAsyncTask extends AsyncTask<Void, Void, Void> {
+		/**
+		 * The M check data.
+		 */
 		MBluetoothUtils.SendDataClass[] mCheckData = new MBluetoothUtils.SendDataClass[mMaxCount];
+		/**
+		 * The M all data.
+		 */
 		int[][] mAllData;
-		int mCount;
-		int mW, mH, mSX, mSY, mEX, mEY;
+		/**
+		 * The M count.
+		 */
+		int mCount,
+		/**
+		 * The M idx.
+		 */
+		mIDX;
+		/**
+		 * The M w.
+		 */
+		int mW,
+		/**
+		 * The M h.
+		 */
+		mH,
+		/**
+		 * The M sx.
+		 */
+		mSX,
+		/**
+		 * The M sy.
+		 */
+		mSY,
+		/**
+		 * The M ex.
+		 */
+		mEX,
+		/**
+		 * The M ey.
+		 */
+		mEY;
 		
-		public MSendAllDotDataForDeviceAsyncTask(int _w, int _h, int[][] _data, int _s_x, int _s_y) {
+		/**
+		 * Instantiates a new M send all dot data for device async task.
+		 *
+		 * @param _w    the w
+		 * @param _h    the h
+		 * @param _data the data
+		 * @param _s_x  the s x
+		 * @param _s_y  the s y
+		 * @param _idx  the idx
+		 */
+		public MSendAllDotDataForDeviceAsyncTask(int _w, int _h, int[][] _data, int _s_x, int _s_y, int _idx) {
 			mCount = 0;
 			mW = _w;
 			mH = _h;
 			mSX = _s_x;
 			mSY = _s_y;
+			mIDX = _idx;
 			mAllData = _data;
-			
-			MDEBUG.debug("Con In _w : " + _w + ", _h : " + _h);
 		}
 		
 		@Override
@@ -776,26 +1014,36 @@ public class MainActivity extends MBaseActivity {
 			int _total = mW * mH;
 			int _idx = 0;
 			for(int x = mSX; x < mW; x++) {
-				for(int y = 0; y < mH; y++) {
+				for(int y = mSY; y < mH; y++) {
 					MDEBUG.debug("mAllData[" + x + "][" + y + "] : " + mAllData[x][y]);
 					if(Color.alpha(mAllData[x][y]) > 0 && mAllData[x][y] != Color.BLACK) {
 						mCheckData[mCount] = new MBluetoothUtils.SendDataClass();
 						mCheckData[mCount].x = (byte) x;
 						mCheckData[mCount].y = (byte) y;
-						mCheckData[mCount].red = (byte) Color.red(mAllData[x][y]);
-						mCheckData[mCount].green = (byte) Color.green(mAllData[x][y]);
-						mCheckData[mCount].blue = (byte) Color.blue(mAllData[x][y]);
+						mCheckData[mCount].red = (byte)(((mAllData[x][y] & 0x00ff0000) >> 16) / 8);
+						mCheckData[mCount].green = (byte)(((mAllData[x][y] & 0x0000ff00) >> 8) / 8);
+						mCheckData[mCount].blue = (byte)((mAllData[x][y] & 0x000000ff) / 8);
 						mCheckData[mCount].color = mAllData[x][y];
 						mCount++;
 					}
 					
 					if(mCount == mMaxCount) {
+						MDEBUG.debug("end y x : " + x);
 						mEY = y;
 						break;
 					}
 				}
+				
+				mSY = 0;
 				if(mCount == mMaxCount) {
+					mEY++;
 					mEX = x;
+					if(mEY >= mH) {
+						mEX++;
+						mEY = 0;
+					}
+					
+					MDEBUG.debug("22 x : " + x);
 					break;
 				}
 			}
@@ -809,28 +1057,35 @@ public class MainActivity extends MBaseActivity {
 		
 		@Override
 		public void onPostExecute(Void _void) {
-			byte[] _send_buf = new byte[mCount * 5];
+			byte[] _send_buf =
+					new byte[FD_BT.SIZE_PAGE + FD_BT.SIZE_LEN1 + (mCount * FD_BT.SIZE_FIELD)];
 			int _buf_idx = 0;
 			
 			MDEBUG.debug("mEX : " + mEX + ", mEY : " + mEY + ", mCount : " + mCount);
+			_send_buf[_buf_idx++] = (byte)mIDX;
+			_send_buf[_buf_idx++] = (byte)(mCount >> 8);
+			_send_buf[_buf_idx++] = (byte)mCount;
+			
+//			MDEBUG.debug("mCount : " + mCount);
 			
 			for(int i = 0; i < mCount; i++) {
-//				MDEBUG.debug("mCheckData[" + i + "].x_pos : " + mCheckData[i].x_pos + ", mCheckData[" + i + "].y_pos : " + mCheckData[i].y_pos);
+//				MDEBUG.debug("mCheckData[" + i + "].x_pos : " + mCheckData[i].x + ", mCheckData[" + i + "].y_pos : " + mCheckData[i].y);
 				_send_buf[_buf_idx++] = mCheckData[i].x;
 				_send_buf[_buf_idx++] = mCheckData[i].y;
-				_send_buf[_buf_idx++] = (byte) mCheckData[i].red;
-				_send_buf[_buf_idx++] = (byte) mCheckData[i].green;
-				_send_buf[_buf_idx++] = (byte) mCheckData[i].blue;
+				_send_buf[_buf_idx++] = (byte)mCheckData[i].red;
+				_send_buf[_buf_idx++] = (byte)mCheckData[i].green;
+				_send_buf[_buf_idx++] = (byte)mCheckData[i].blue;
 			}
 			
 			MBluetoothUtils.transmit_data(mBtSpp, FD_BT.SET_DRAW, _send_buf);
+			
 			if(mEX < (mW - 1) || mEY < (mH - 1)) {
 				final int _x = mEX;
 				final int _y = mEY;
 				mHandler.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						new MSendAllDotDataForDeviceAsyncTask(mW, mH, mAllData, _x, _y).execute();
+						new MSendAllDotDataForDeviceAsyncTask(mW, mH, mAllData, _x, _y, mIDX).execute();
 					}
 				}, FD_DELAY.DATA_UPDATE);
 			} else {
@@ -840,7 +1095,15 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * The type Mm category add dialog.
+	 */
 	public class MMCategoryAddDialog extends MCategoryAddDialog {
+		/**
+		 * Instantiates a new Mm category add dialog.
+		 *
+		 * @param _activity the activity
+		 */
 		public MMCategoryAddDialog(MainActivity _activity) {
 			super(_activity);
 		}
@@ -865,6 +1128,13 @@ public class MainActivity extends MBaseActivity {
 	}
 	
 	private class MCategoryAddDBDataAsyncTask extends CategoryAddDBDataAsyncTask {
+		/**
+		 * Instantiates a new M category add db data async task.
+		 *
+		 * @param _activity the activity
+		 * @param _mad      the mad
+		 * @param _str      the str
+		 */
 		public MCategoryAddDBDataAsyncTask(Activity _activity, MAppDatabase _mad, MD_Category _str) {
 			super(_activity, _mad, _str);
 			mShowProgress();
@@ -876,6 +1146,11 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * M delete category.
+	 *
+	 * @param _idx the idx
+	 */
 	public void mDeleteCategory(int _idx) {
 		MD_Category _str_category = null;
 		for(int i = 0; i < mCategoryList.size(); i++) {
@@ -891,6 +1166,12 @@ public class MainActivity extends MBaseActivity {
 	}
 	
 	private class MCategoryDeleteDBDataAsyncTask extends CategoryDeleteDBDataAsyncTask {
+		/**
+		 * Instantiates a new M category delete db data async task.
+		 *
+		 * @param _mad the mad
+		 * @param _str the str
+		 */
 		public MCategoryDeleteDBDataAsyncTask(MAppDatabase _mad, MD_Category _str) {
 			super(_mad, _str);
 			mShowProgress();
@@ -902,7 +1183,61 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * M delete emoticon.
+	 *
+	 * @param _idx the idx
+	 */
+	public void mDeleteEmoticon(int _idx) {
+		MD_Emoticon _str_emoticon = null;
+		int _c_idx = MAPP.ERROR_;
+		for(int i = 0; i < mEmoticonList.size(); i++) {
+			MD_Emoticon _str = mEmoticonList.get(i);
+			if(_idx == _str.idx_) {
+				_c_idx = i;
+				_str_emoticon = _str;
+				break;
+			}
+		}
+		
+		if(_str_emoticon != null)
+			new MEmoticonDeleteDBDataAsyncTask(MAPP.mAppDatabase, _str_emoticon, _c_idx).execute();
+	}
+	
+	private class MEmoticonDeleteDBDataAsyncTask extends EmoticonDeleteDBDataAsyncTask {
+		/**
+		 * The M idx.
+		 */
+		int mIDX;
+		
+		/**
+		 * Instantiates a new M emoticon delete db data async task.
+		 *
+		 * @param _mad the mad
+		 * @param _str the str
+		 * @param _idx the idx
+		 */
+		public MEmoticonDeleteDBDataAsyncTask(MAppDatabase _mad, MD_Emoticon _str, int _idx) {
+			super(_mad, _str);
+			mShowProgress();
+			mIDX = _idx;
+		}
+		
+		@Override
+		public void mResult() {
+			mCancelProgress();
+			mEmoticonList.remove(mIDX);
+			((MFragmentGallery)mFragmentGallery).mUpdateList();
+		}
+	}
+	
 	private class MLoadRoomDBDataAsyncTask extends LoadRoomDBDataAsyncTask {
+		/**
+		 * Instantiates a new M load room db data async task.
+		 *
+		 * @param _activity the activity
+		 * @param _md       the md
+		 */
 		public MLoadRoomDBDataAsyncTask(Activity _activity, MAppDatabase _md) {
 			super(_activity, _md);
 			mCategoryList.clear();
@@ -918,7 +1253,15 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * The type Mm emoticon add dialog.
+	 */
 	public class MMEmoticonAddDialog extends MEmoticonAddDialog {
+		/**
+		 * Instantiates a new Mm emoticon add dialog.
+		 *
+		 * @param _activity the activity
+		 */
 		public MMEmoticonAddDialog(MainActivity _activity) {
 			super(_activity);
 		}
@@ -929,7 +1272,8 @@ public class MainActivity extends MBaseActivity {
 			
 			mShowProgress();
 			mSaveFileIndex = MAPP.INIT_;
-			new MCreateFolderAndFileSaveAsyncTask(_name, "", _idx).execute();
+			mSaveEmoticonFileList.clear();
+			new MCreateFolderAndFileSaveAsyncTask(_name, _idx).execute();
 		}
 		
 		@Override
@@ -964,10 +1308,16 @@ public class MainActivity extends MBaseActivity {
 		}
 	}
 	
+	/**
+	 * M show emoticon add dialog.
+	 */
 	public void mShowEmoticonAddDialog() {
 		mEmoticonAddDialog.mShowDialog(this, mCategoryList);
 	}
 	
+	/**
+	 * M go phone gallery.
+	 */
 	public void mGoPhoneGallery() {
 		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 		intent.setType(FD_DRAW.PHONE_GALLERY_TYPE);
@@ -978,13 +1328,31 @@ public class MainActivity extends MBaseActivity {
 	 * Create Folder & File
 	 */
 	private class MCreateFolderAndFileSaveAsyncTask extends AsyncTask<Void, Void, Void> {
+		/**
+		 * The M name.
+		 */
 		String mName;
+		/**
+		 * The M file name.
+		 */
 		String mFileName = "";
+		/**
+		 * The M files name.
+		 */
 		String mFilesName = "";
+		/**
+		 * The M category idx.
+		 */
 		int mCategoryIdx = MAPP.ERROR_;
-		public MCreateFolderAndFileSaveAsyncTask(String _name, String _files_name, int _category_idx) {
+		
+		/**
+		 * Instantiates a new M create folder and file save async task.
+		 *
+		 * @param _name         the name
+		 * @param _category_idx the category idx
+		 */
+		public MCreateFolderAndFileSaveAsyncTask(String _name, int _category_idx) {
 			mName = _name;
-			mFilesName = _files_name;
 			mCategoryIdx = _category_idx;
 		}
 		
@@ -1011,14 +1379,15 @@ public class MainActivity extends MBaseActivity {
 				}
 			}
 			
-			mFileName = (System.currentTimeMillis() + FD_DRAW.MSAVE_FILE_FORMAT_STR);
-			File _file = new File(mFileDirPath + "/" + mFileName);
+			mFileName = "" + System.currentTimeMillis();
+			File _file = new File(mFileDirPath + "/" + mFileName + FD_DRAW.MSAVE_FILE_FORMAT_STR);
 			OutputStream _out = null;
 			
 			try {
 				_file.createNewFile();
 				_out = new FileOutputStream(_file);
-				_bm.compress(FD_DRAW.MSAVE_FILE_FORMAT, FD_DRAW.MSAVE_FILE_QUALITY, _out);
+				_bm.compress(FD_DRAW.MSAVE_FILE_FORMAT,
+						FD_DRAW.MSAVE_FILE_QUALITY, _out);
 			} catch (Exception e) {
 				MDEBUG.debug("1. MCreateFolderAsyncTask error : " + e.toString());
 			} finally {
@@ -1038,27 +1407,81 @@ public class MainActivity extends MBaseActivity {
 			
 			MFragmentDraw _mfd = ((MFragmentDraw)mFragmentDraw);
 			MDEBUG.debug("mSaveFileIndex : " + mSaveFileIndex + ", _mfd.mGetMatrixEA() : " + _mfd.mGetMatrixEA());
+			
+			String _file_name = mFileName;
+			mSaveEmoticonFileList.add(_file_name);
 			if(mSaveFileIndex < _mfd.mGetMatrixEA()) {
-				mFilesName += (mFileName + FD_DRAW.SPLIT_TOKEN);
-				new MCreateFolderAndFileSaveAsyncTask(mName, mFilesName, mCategoryIdx).execute();
+				new MCreateFolderAndFileSaveAsyncTask(mName, mCategoryIdx).execute();
 			} else {
-				new MDrawFileInfoInRoomAsyncTask().execute();
+				new MDrawFileInfoInRoomAsyncTask(mCategoryIdx, mName).execute();
 			}
 		}
 	}
 	
 	private class MDrawFileInfoInRoomAsyncTask extends AsyncTask<Void, Void, Void> {
-		public MDrawFileInfoInRoomAsyncTask() {
+		private String mName = "";
+		private int mCategoryIdx = MAPP.ERROR_;
+		
+		/**
+		 * Instantiates a new M draw file info in room async task.
+		 *
+		 * @param _category_idx the category idx
+		 * @param _name         the name
+		 */
+		public MDrawFileInfoInRoomAsyncTask(int _category_idx, String _name) {
+			mCategoryIdx = _category_idx;
+			mName = _name;
+			MDEBUG.debug("mCategoryIdx : " + mCategoryIdx);
 		}
 		
 		@Override
 		protected Void doInBackground(Void... voids) {
+			MDEBUG.debug("mCategoryIdx : " + mCategoryIdx);
+			if(mCategoryIdx == MAPP.ERROR_)
+				return null;
+			
+			String _file_path = "";
+			
+			MD_Emoticon _md = new MD_Emoticon();
+			if(mSaveEmoticonFileList.size() > MAPP.START_ALIVE) {
+				for(int i = 0; i < mSaveEmoticonFileList.size(); i++) {
+					_file_path += (mSaveEmoticonFileList.get(i) + FD_DRAW.SPLIT_TOKEN);
+				}
+				_md.mIsOneEmoticon = false;
+			} else {
+				_file_path = (mSaveEmoticonFileList.get(MAPP.INIT_));
+				_md.mIsOneEmoticon = true;
+			}
+			
+			_md.mName = mName;
+			_md.mImageResID = MAPP.ERROR_;
+			_md.mCatergoryIdx = mCategoryIdx;
+			
+			if(_md.mIsLocalData)
+				_md.mCatergoryName = MDB_FD.MCATEGORY_TITLE[_md.mCatergoryIdx];
+			else {
+				for(int i = 0; i < mCategoryList.size(); i++) {
+					if(_md.mCatergoryIdx == mCategoryList.get(i).idx_) {
+						_md.mCatergoryName = mCategoryList.get(i).mName;
+						break;
+					}
+				}
+			}
+			
+			_md.mIsLocalData = false;
+			_md.mIsFavorite = false;
+			_md.mDate = System.currentTimeMillis();
+			_md.mEmoticonFilesPath = _file_path;
+			
+			MDEBUG.debug("_md.mCatergoryName : " + _md.mCatergoryName);
+			
+			MAPP.mAppDatabase.mDAOHandler().insertEmoticon(_md);
 			return null;
 		}
 		
 		@Override
 		public void onPostExecute(Void _void) {
-			mCancelProgress();
+			new MLoadRoomDBDataAsyncTask(MainActivity.this, MAPP.mAppDatabase).execute();
 		}
 	}
 }

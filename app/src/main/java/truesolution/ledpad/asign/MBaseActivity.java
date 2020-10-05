@@ -15,19 +15,20 @@ import truesolution.ledpad.asign.fd.FD_DELAY;
 /**
  * MBaseActivity
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020-07-01
+ * @since 2020 -07-01
  */
 public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * Decor View
 	 */
 	public View mDecorView;
-
+	
 	/**
 	 * Get Error Message
-	 * @return
+	 *
+	 * @return string
 	 */
 	public abstract String mGetErrorMessage();
 	
@@ -70,7 +71,7 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	 * Finish
 	 */
 	public boolean mIsFinish			= false;
-
+	
 	/**
 	 * Pause
 	 */
@@ -119,10 +120,9 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * mShowProgress
 	 *
-	 * @author think.code.help@gmail.com
+	 * @author think.code.help @gmail.com
 	 * @version 1.0
 	 * @since 2018. 5. 13.
-	 *
 	 */
 	public void mShowProgress() {
 		if(mProgressDialog.isShowing())
@@ -134,10 +134,9 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * mCancelProgress
 	 *
-	 * @author think.code.help@gmail.com
+	 * @author think.code.help @gmail.com
 	 * @version 1.0
 	 * @since 2018. 5. 13.
-	 *
 	 */
 	public void mCancelProgress() {
 		mHandler.postDelayed(new Runnable() {
@@ -167,8 +166,8 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * Show Message Dialog
 	 *
-	 * @param _msg
-	 * @param _is_cancel
+	 * @param _msg       the msg
+	 * @param _is_cancel the is cancel
 	 */
 	public void mShowMessageDialog(String _msg, boolean _is_cancel) {
 		mMessageDialog.mShow(_msg, _is_cancel);
@@ -177,8 +176,8 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * Show Message Dialog
 	 *
-	 * @param _msg_id
-	 * @param _is_cancel
+	 * @param _msg_id    the msg id
+	 * @param _is_cancel the is cancel
 	 */
 	public void mShowMessageDialog(int _msg_id, boolean _is_cancel) {
 		if(mMessageDialog != null)
@@ -189,7 +188,7 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * Show Toast Message
 	 *
-	 * @param _text
+	 * @param _text the text
 	 */
 	public void mShowToast(String _text) {
 		Toast.makeText(getBaseContext(), _text, Toast.LENGTH_SHORT).show();
@@ -197,13 +196,22 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	
 	/**
 	 * Show Toast Message
-	 * @param _text_id
+	 *
+	 * @param _text_id the text id
 	 */
 	public void mShowToast(int _text_id) {
 		Toast.makeText(getBaseContext(), _text_id, Toast.LENGTH_SHORT).show();
 	}
 	
+	/**
+	 * The type My message dialog.
+	 */
 	public class MyMessageDialog extends MMessageDialog {
+		/**
+		 * Instantiates a new My message dialog.
+		 *
+		 * @param context the context
+		 */
 		public MyMessageDialog(Context context) {
 			super(context);
 		}
@@ -237,7 +245,7 @@ public abstract class MBaseActivity extends AppCompatActivity {
 	/**
 	 * mStartActivity
 	 *
-	 * @param _class
+	 * @param _class the class
 	 */
 	public void mStartActivity(Class _class) {
 		Intent _intent = new Intent(this, _class);
@@ -264,7 +272,7 @@ public abstract class MBaseActivity extends AppCompatActivity {
 		mIsPause = false;
 		MDEBUG.debug("onResume!!!!!!");
 	}
-
+	
 	/**
 	 * Navigation Bar Hidden
 	 */

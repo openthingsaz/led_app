@@ -3,7 +3,7 @@ package truesolution.ledpad.asign.fd;
 /**
  * Created by TCH on 2018. 7. 31.
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @since 2018. 7. 31.
  */

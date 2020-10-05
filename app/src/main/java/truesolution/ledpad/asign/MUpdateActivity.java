@@ -33,32 +33,64 @@ import truesolution.ledpad.asign.utils.MBluetoothUtils;
 /**
  * Created by TCH on 2020/09/01
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/09/01
+ * @since 2020 /09/01
  */
-
 public class MUpdateActivity extends MBaseActivity {
+	/**
+	 * The Tv btn back.
+	 */
 	@BindView(R.id.tvBtnBack)
 	TextView tvBtnBack;
+	/**
+	 * The Rl device list top.
+	 */
 	@BindView(R.id.rlDeviceListTop)
 	RelativeLayout rlDeviceListTop;
+	/**
+	 * The Tv sub title view.
+	 */
 	@BindView(R.id.tvSubTitleView)
 	TextView tvSubTitleView;
+	/**
+	 * The Et wifi ssid.
+	 */
 	@BindView(R.id.etWifiSSID)
 	EditText etWifiSSID;
+	/**
+	 * The Tv text bottom line 1.
+	 */
 	@BindView(R.id.tvTextBottomLine1)
 	TextView tvTextBottomLine1;
+	/**
+	 * The Et wifi pw.
+	 */
 	@BindView(R.id.etWifiPW)
 	EditText etWifiPW;
+	/**
+	 * The Tv text bottom line 2.
+	 */
 	@BindView(R.id.tvTextBottomLine2)
 	TextView tvTextBottomLine2;
+	/**
+	 * The Tv btn connect.
+	 */
 	@BindView(R.id.tvBtnConnect)
 	TextView tvBtnConnect;
+	/**
+	 * The Ll wifi info.
+	 */
 	@BindView(R.id.llWifiInfo)
 	LinearLayout llWifiInfo;
+	/**
+	 * The Tv btn wifi scan.
+	 */
 	@BindView(R.id.tvBtnWifiScan)
 	TextView tvBtnWifiScan;
+	/**
+	 * The Ll scan wifi list.
+	 */
 	@BindView(R.id.llScanWifiList)
 	ListView llScanWifiList;
 	
@@ -146,6 +178,9 @@ public class MUpdateActivity extends MBaseActivity {
 		}, FD_DELAY.DATA_UPDATE);
 	}
 	
+	/**
+	 * The M wifi scan receiver.
+	 */
 	BroadcastReceiver mWifiScanReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context c, Intent intent) {
@@ -182,10 +217,18 @@ public class MUpdateActivity extends MBaseActivity {
 		MDEBUG.debug("mWifiScanFailure!!!!!!");
 	}
 	
+	/**
+	 * M update list.
+	 */
 	public void mUpdateList() {
 		mWifiDeviceBaseAdapter.notifyDataSetChanged();
 	}
 	
+	/**
+	 * On view clicked.
+	 *
+	 * @param view the view
+	 */
 	@OnClick({R.id.tvBtnBack, R.id.tvBtnConnect, R.id.tvBtnWifiScan})
 	public void onViewClicked(View view) {
 		switch(view.getId()) {

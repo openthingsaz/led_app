@@ -87,10 +87,14 @@
                 android:background="@color/c_sub_line" />
 
             <TextView
+                android:textAppearance="@style/MainMenuTitleText"
                 android:id="@+id/tvBtnConnect"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
+                android:text="@string/text_connecte"
+                android:gravity="center"
+                android:textColor="@color/c_white"
                 android:layout_below="@id/iclSelectWifiLayout"
                 android:background="@drawable/selector_connect_bar" />
 

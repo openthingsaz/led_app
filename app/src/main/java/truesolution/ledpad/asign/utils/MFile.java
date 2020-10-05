@@ -9,7 +9,7 @@ import truesolution.ledpad.asign.MDEBUG;
 /**
  * Created by TCH on 2018. 8. 3.
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @since 2018. 8. 3.
  */
@@ -17,8 +17,8 @@ public class MFile {
 	/**
 	 * Text to File
 	 *
-	 * @param _file
-	 * @param _data
+	 * @param _file the file
+	 * @param _data the data
 	 */
 	public static void mTextToFile(File _file, String _data) {
 		try {
@@ -33,8 +33,9 @@ public class MFile {
 	
 	/**
 	 * Byte Array To File
-	 * @param _file
-	 * @param _buf
+	 *
+	 * @param _file the file
+	 * @param _buf  the buf
 	 */
 	public static void mByteArrayToFile(File _file, byte[] _buf) {
 		try {

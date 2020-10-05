@@ -22,15 +22,28 @@ import truesolution.ledpad.asign.fragment.adapter.MCategoryListBaseAdapter;
 /**
  * Created by TCH on 2020/08/07
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/08/07
+ * @since 2020 /08/07
  */
-
 public abstract class MEmoticonAddDialog {
 	private MainActivity mActivity;
+	/**
+	 * The M dialog.
+	 */
 	public AlertDialog mDialog;
+	
+	/**
+	 * M btn yes.
+	 *
+	 * @param _name the name
+	 * @param _idx  the idx
+	 */
 	public abstract void mBtnYes(String _name, int _idx);
+	
+	/**
+	 * M btn no.
+	 */
 	public abstract void mBtnNo();
 	
 	private TextView etEmoticonName, tvBtnEmoticonAddYes, tvBtnEmoticonAddNo;
@@ -39,10 +52,21 @@ public abstract class MEmoticonAddDialog {
 	private MMCategoryListBaseAdapter mCategoryListBaseAdapter;
 	private List<MD_Category> mList;
 	
+	/**
+	 * Instantiates a new M emoticon add dialog.
+	 *
+	 * @param _activity the activity
+	 */
 	public MEmoticonAddDialog(MainActivity _activity) {
 		mActivity = _activity;
 	}
 	
+	/**
+	 * M show dialog.
+	 *
+	 * @param _activity the activity
+	 * @param _list     the list
+	 */
 	public void mShowDialog(Activity _activity, List<MD_Category> _list) {
 		MDEBUG.debug("List<MD_Emoticon> _list : " + _list);
 		if(_list != null)
@@ -87,6 +111,7 @@ public abstract class MEmoticonAddDialog {
 					return;
 				}
 				if(_name.length() > 0) {
+					MDEBUG.debug("_position : " + _position);
 					mBtnYes(_name, mCategoryListBaseAdapter.mGetCategoryIdx(_position));
 				} else {
 					mActivity.mShowMessageDialog(R.string.text_menu_gallery_category_name_input_none, false);
@@ -104,6 +129,12 @@ public abstract class MEmoticonAddDialog {
 	}
 	
 	private class MMCategoryListBaseAdapter extends MCategoryListBaseAdapter {
+		/**
+		 * Instantiates a new Mm category list base adapter.
+		 *
+		 * @param context the context
+		 * @param _list   the list
+		 */
 		public MMCategoryListBaseAdapter(Context context, List<MD_Category> _list) {
 			super(context, _list);
 		}

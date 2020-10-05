@@ -14,23 +14,45 @@ import truesolution.ledpad.asign.R;
 /**
  * Created by TCH on 2020/08/07
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/08/07
+ * @since 2020 /08/07
  */
-
 public abstract class MCategoryAddDialog {
 	private MainActivity mActivity;
+	/**
+	 * The M dialog.
+	 */
 	public AlertDialog mDialog;
+	
+	/**
+	 * M btn yes.
+	 *
+	 * @param _name the name
+	 */
 	public abstract void mBtnYes(String _name);
+	
+	/**
+	 * M btn no.
+	 */
 	public abstract void mBtnNo();
 	
 	private TextView etCategoryName, tvBtnCategoryAddYes, tvBtnCategoryAddNo;
 	
+	/**
+	 * Instantiates a new M category add dialog.
+	 *
+	 * @param _activity the activity
+	 */
 	public MCategoryAddDialog(MainActivity _activity) {
 		mActivity = _activity;
 	}
 	
+	/**
+	 * M show dialog.
+	 *
+	 * @param _activity the activity
+	 */
 	public void mShowDialog(Activity _activity) {
 		if(mDialog != null) {
 			mDialog.show();

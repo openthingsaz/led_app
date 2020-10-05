@@ -1,7 +1,6 @@
 package truesolution.ledpad.asign.fragment;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -23,6 +22,7 @@ import truesolution.ledpad.asign.MDEBUG;
 import truesolution.ledpad.asign.MainActivity;
 import truesolution.ledpad.asign.R;
 import truesolution.ledpad.asign.app.MAPP;
+import truesolution.ledpad.asign.fd.FD_BT;
 import truesolution.ledpad.asign.fd.FD_DELAY;
 import truesolution.ledpad.asign.fd.FD_DRAW;
 import truesolution.ledpad.asign.fragment.str.STR_Text;
@@ -33,11 +33,10 @@ import truesolution.ledpad.asign.view.MFreeDrawView;
 /**
  * Created by TCH on 2020/07/07
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
- * @since 2020/07/07
+ * @since 2020 /07/07
  */
-
 public class MFragmentText extends Fragment {
 	private final int TEXT_ACTION_SPEED_MAX = 998;
 	private final int[] DEVICE_TEXT_SIZE            = {
@@ -46,6 +45,12 @@ public class MFragmentText extends Fragment {
 	
 	private MainActivity mActivity;
 	private View mView;
+	
+	/**
+	 * Instantiates a new M fragment text.
+	 *
+	 * @param _activity the activity
+	 */
 	public MFragmentText(Activity _activity) {
 		mActivity = (MainActivity) _activity;
 	}
@@ -109,10 +114,40 @@ public class MFragmentText extends Fragment {
 	};
 	
 	// TODO TCH : Tob Menu
-	private TextView tvBtnPlay;
+	private TextView tvBtnPlay, tvBtnSave;
 	private void mFindTopTabViewById(View _view) {
 		tvBtnPlay = _view.findViewById(R.id.tvBtnPlay);
 		tvBtnPlay.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				MDEBUG.debug("mFindTopTabViewById mPageEA : " + mPageEA);
+				if(mPageEA > MAPP.START_ALIVE) {
+					strText[mPageIdx].mText = etInputText[mPageIdx].getText().toString();
+					
+					ArrayList<STR_Text> _list = new ArrayList<>();
+					for(int i = 0; i < mPageEA; i++) {
+						_list.add(strText[i]);
+					}
+					MBluetoothUtils.mSendMultiText(mActivity.mBtSpp, _list, mTextBGColor,
+//							strText[0].mFontSizeIdx,
+							DEVICE_TEXT_SIZE[strText[MAPP.INIT_].mFontSizeIdx],
+							mAction, mActionTime, (byte)0);
+					return;
+				}
+//				}
+//				MDEBUG.debug("Text a : " + a + ", b : " + b + ", c : " + c + ", _tb : " + _tb.length);
+				
+				MDEBUG.debug("mFindTopTabViewById mPageIdx : " + mPageIdx);
+				MBluetoothUtils.mSendText(mActivity.mBtSpp,
+						etInputText[mPageIdx].getText().toString(), mPenColor, mTextBGColor,
+						DEVICE_TEXT_SIZE[strText[MAPP.INIT_].mFontSizeIdx],
+						mAction, mActionTime, (byte)0
+				);
+			}
+		});
+		
+		tvBtnSave = _view.findViewById(R.id.tvBtnSave);
+		tvBtnSave.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if(mPageEA > MAPP.START_ALIVE) {
@@ -122,21 +157,27 @@ public class MFragmentText extends Fragment {
 					for(int i = 0; i < mPageEA; i++) {
 						_list.add(strText[i]);
 					}
-					MBluetoothUtils.mSendMultiText(mActivity.mBtSpp, _list, mTextBGColor, strText[0].mFontSizeIdx, mAction, mActionTime);
+					MBluetoothUtils.mSendMultiText(mActivity.mBtSpp, _list, mTextBGColor,
+							DEVICE_TEXT_SIZE[strText[MAPP.INIT_].mFontSizeIdx],
+							mAction, mActionTime, (byte)(FD_BT.SAVE_COLOR_TEXT - FD_BT.SET_TEXT_EACH));
 					return;
 				}
 				
+				MDEBUG.debug("mFindTopTabViewById mPageIdx : " + mPageIdx);
 				MBluetoothUtils.mSendText(mActivity.mBtSpp,
 						etInputText[mPageIdx].getText().toString(), mPenColor, mTextBGColor,
-						DEVICE_TEXT_SIZE[strText[mPageIdx].mFontSizeIdx],
-						mAction, mActionTime
+						DEVICE_TEXT_SIZE[strText[MAPP.INIT_].mFontSizeIdx],
+						mAction, mActionTime, (byte)(FD_BT.SAVE_TEXT - FD_BT.SET_TEXT)
 				);
 			}
 		});
 	}
 	// End
 	
-	// TODO TCH : MFreeDrawView
+	/**
+	 * The M free draw view.
+	 */
+// TODO TCH : MFreeDrawView
 	public MFreeDrawView mFreeDrawView;
 	private EditText[] etInputText = new EditText[FD_DRAW.MAX_DRAW_PAGE];
 	private void mFindFDVViewById(View _view) {
@@ -192,11 +233,13 @@ public class MFragmentText extends Fragment {
 				@Override
 				public void run() {
 					mActivity.mCancelProgress();
-					mActivity.mKeyboardHide(etInputText[FD_DRAW.PAGE_1]);
-//					RelativeLayout.LayoutParams _rllp = new RelativeLayout.LayoutParams(mFreeDrawView.mAreaW, mFreeDrawView.mAreaH);
-//					_rllp.leftMargin = mFreeDrawView.mStartX;
-//					_rllp.topMargin = mFreeDrawView.mStartY;
-//					etInputText[mPageIdx].setLayoutParams(_rllp);
+					for(int i = 0; i < etInputText.length; i++) {
+						mActivity.mKeyboardHide(etInputText[i]);
+						RelativeLayout.LayoutParams _rllp = new RelativeLayout.LayoutParams(mFreeDrawView.mAreaW, mFreeDrawView.mAreaH);
+						_rllp.leftMargin = mFreeDrawView.mStartX;
+						_rllp.topMargin = mFreeDrawView.mStartY;
+						etInputText[i].setLayoutParams(_rllp);
+					}
 				}
 			}, FD_DELAY.MIN_DISPLAY);
 		}
@@ -216,7 +259,7 @@ public class MFragmentText extends Fragment {
 	// TODO TCH : Action
 	private LinearLayout llTextMenuWrite, llTextMenuAction;
 	private int mAction;
-	private TextView tvBtnMarqueeDefault, tvBtnMarqueeLeft, tvBtnMarqueeRight, tvBtnMarqueeUp, tvBtnMarqueeDown, tvTxtSpeed;
+	private TextView tvBtnMarqueeDefault, tvBtnMarqueeLeft, tvBtnMarqueeRight, tvBtnMarqueeUp, tvBtnMarqueeDown, tvBtnMarqueeBlink, tvTxtSpeed;
 	private SeekBar sbSpeed;
 	private int mActionTime;
 	private void mFindActionViewById(View _view) {
@@ -229,11 +272,14 @@ public class MFragmentText extends Fragment {
 		tvBtnMarqueeRight = _view.findViewById(R.id.tvBtnMarqueeRight);
 		tvBtnMarqueeUp = _view.findViewById(R.id.tvBtnMarqueeUp);
 		tvBtnMarqueeDown = _view.findViewById(R.id.tvBtnMarqueeDown);
+		tvBtnMarqueeBlink = _view.findViewById(R.id.tvBtnMarqueeBlink);
+		
 		tvBtnMarqueeDefault.setOnClickListener(mOnActionClickListener);
 		tvBtnMarqueeLeft.setOnClickListener(mOnActionClickListener);
 		tvBtnMarqueeRight.setOnClickListener(mOnActionClickListener);
 		tvBtnMarqueeUp.setOnClickListener(mOnActionClickListener);
 		tvBtnMarqueeDown.setOnClickListener(mOnActionClickListener);
+		tvBtnMarqueeBlink.setOnClickListener(mOnActionClickListener);
 		
 		sbSpeed.setMax(TEXT_ACTION_SPEED_MAX);
 		mActionTime = TEXT_ACTION_SPEED_MAX / 2;
@@ -260,6 +306,7 @@ public class MFragmentText extends Fragment {
 		tvBtnMarqueeDefault.setSelected(true);
 		mAction = FD_DRAW.ACTION_DEFAULT;
 	}
+	
 	private View.OnClickListener mOnActionClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View view) {
@@ -269,6 +316,7 @@ public class MFragmentText extends Fragment {
 			tvBtnMarqueeRight.setSelected(false);
 			tvBtnMarqueeUp.setSelected(false);
 			tvBtnMarqueeDown.setSelected(false);
+			tvBtnMarqueeBlink.setSelected(false);
 			
 			if(_id == R.id.tvBtnMarqueeDefault) {
 				mAction = FD_DRAW.ACTION_DEFAULT;
@@ -285,6 +333,9 @@ public class MFragmentText extends Fragment {
 			} else if(_id == R.id.tvBtnMarqueeUp) {
 				mAction = FD_DRAW.ACTION_DOWN_TO_UP;
 				tvBtnMarqueeUp.setSelected(true);
+			} else if(_id == R.id.tvBtnMarqueeBlink) {
+				mAction = FD_DRAW.ACTION_DOWN_BLINK;
+				tvBtnMarqueeBlink.setSelected(true);
 			}
 		}
 	};
@@ -293,6 +344,9 @@ public class MFragmentText extends Fragment {
 	// TODO TCH : Text Color
 	private LinearLayout iclTextColor;
 	private GradientDrawable gdColorSelect = new GradientDrawable();
+	/**
+	 * The M pen color.
+	 */
 	public int mPenColor;
 	private TextView tvSelectColor, tvBtnColorCustom, tvBtnColorBlack, tvBtnColorRed, tvBtnColorOrange, tvBtnColorYellow, tvBtnColorGreen,
 			tvBtnColorBlue, tvBtnColorIndigo, tvBtnColorPurple;
@@ -362,6 +416,9 @@ public class MFragmentText extends Fragment {
 	// TODO TCH : BG Color
 	private LinearLayout iclTextBGColor;
 	private GradientDrawable gdTextBGColorSelect = new GradientDrawable();
+	/**
+	 * The M text bg color.
+	 */
 	public int mTextBGColor;
 	private TextView tvTextBGSelectColor, tvBtnTextBGColorCustom, tvBtnTextBGColorBlack, tvBtnTextBGColorRed,
 			tvBtnTextBGColorOrange, tvBtnTextBGColorYellow, tvBtnTextBGColorGreen,
@@ -430,6 +487,12 @@ public class MFragmentText extends Fragment {
 	};
 	// End
 	
+	/**
+	 * M set color.
+	 *
+	 * @param _color   the color
+	 * @param _is_text the is text
+	 */
 	public void mSetColor(int _color, boolean _is_text) {
 		if(_is_text) {
 			mPenColor = _color;
@@ -515,24 +578,24 @@ public class MFragmentText extends Fragment {
 		public void onClick(View view) {
 			int _id = view.getId();
 			if(_id == R.id.tvBtnFontSize1) {
-				strText[mPageIdx].mFontSizeIdx = FD_DRAW.FONT_SIZE_IDX2;
-				mFreeDrawView.mSetPixel(FD_DRAW.DOT_SIZE2);
+				strText[MAPP.INIT_].mFontSizeIdx = FD_DRAW.FONT_SIZE_IDX2;
+//				mFreeDrawView.mSetPixel(FD_DRAW.DOT_SIZE3);
 				
 				tvBtnFontSize1.setSelected(false);
 				tvBtnFontSize1.setVisibility(View.INVISIBLE);
 				tvBtnFontSize2.setSelected(true);
 				tvBtnFontSize2.setVisibility(View.VISIBLE);
 			} else if(_id == R.id.tvBtnFontSize2) {
-				strText[mPageIdx].mFontSizeIdx = FD_DRAW.FONT_SIZE_IDX3;
-				mFreeDrawView.mSetPixel(FD_DRAW.DOT_SIZE3);
+				strText[MAPP.INIT_].mFontSizeIdx = FD_DRAW.FONT_SIZE_IDX3;
+//				mFreeDrawView.mSetPixel(FD_DRAW.DOT_SIZE3);
 				
 				tvBtnFontSize2.setSelected(false);
 				tvBtnFontSize2.setVisibility(View.INVISIBLE);
 				tvBtnFontSize3.setSelected(true);
 				tvBtnFontSize3.setVisibility(View.VISIBLE);
 			} else if(_id == R.id.tvBtnFontSize3) {
-				strText[mPageIdx].mFontSizeIdx = FD_DRAW.FONT_SIZE_IDX1;
-				mFreeDrawView.mSetPixel(FD_DRAW.DOT_SIZE1);
+				strText[MAPP.INIT_].mFontSizeIdx = FD_DRAW.FONT_SIZE_IDX1;
+//				mFreeDrawView.mSetPixel(FD_DRAW.DOT_SIZE2);
 				
 				tvBtnFontSize3.setSelected(false);
 				tvBtnFontSize3.setVisibility(View.INVISIBLE);
@@ -540,9 +603,11 @@ public class MFragmentText extends Fragment {
 				tvBtnFontSize1.setVisibility(View.VISIBLE);
 			}
 			
-			etInputText[mPageIdx].setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(mArFontSize[
-					strText[mPageIdx].mFontSizeIdx
-					]));
+			for(int i = 0; i < etInputText.length; i++) {
+				etInputText[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(mArFontSize[
+						strText[MAPP.INIT_].mFontSizeIdx
+						]));
+			}
 		}
 	};
 	
@@ -560,25 +625,15 @@ public class MFragmentText extends Fragment {
 			}
 			
 			if(_id == R.id.tvBtnPageNum1) {
-				mPageIdx = FD_DRAW.PAGE_1;
-				tvBtnPageNum[mPageIdx].setSelected(true);
-				etInputText[mPageIdx].setVisibility(View.VISIBLE);
+				mSetPageColorAndTextChange(FD_DRAW.PAGE_1);
 			} else if(_id == R.id.tvBtnPageNum2) {
-				mPageIdx = FD_DRAW.PAGE_2;
-				tvBtnPageNum[mPageIdx].setSelected(true);
-				etInputText[mPageIdx].setVisibility(View.VISIBLE);
+				mSetPageColorAndTextChange(FD_DRAW.PAGE_2);
 			} else if(_id == R.id.tvBtnPageNum3) {
-				mPageIdx = FD_DRAW.PAGE_3;
-				tvBtnPageNum[mPageIdx].setSelected(true);
-				etInputText[mPageIdx].setVisibility(View.VISIBLE);
+				mSetPageColorAndTextChange(FD_DRAW.PAGE_3);
 			} else if(_id == R.id.tvBtnPageNum4) {
-				mPageIdx = FD_DRAW.PAGE_4;
-				tvBtnPageNum[mPageIdx].setSelected(true);
-				etInputText[mPageIdx].setVisibility(View.VISIBLE);
+				mSetPageColorAndTextChange(FD_DRAW.PAGE_4);
 			} else if(_id == R.id.tvBtnPageNum5) {
-				mPageIdx = FD_DRAW.PAGE_5;
-				tvBtnPageNum[mPageIdx].setSelected(true);
-				etInputText[mPageIdx].setVisibility(View.VISIBLE);
+				mSetPageColorAndTextChange(FD_DRAW.PAGE_5);
 			} else if(_id == R.id.tvBtnAdd) {
 				int _prev_idx = mPageEA - MAPP.START_ALIVE;
 				if(mPageEA <= FD_DRAW.PAGE_5) {
@@ -587,11 +642,14 @@ public class MFragmentText extends Fragment {
 					etInputText[_prev_idx].setVisibility(View.GONE);
 					etInputText[mPageEA].setText("");
 					etInputText[mPageEA].setVisibility(View.VISIBLE);
+					etInputText[mPageEA].setTextColor(mPenColor);
+					
 					tvBtnPageNum[mPageEA].setVisibility(View.VISIBLE);
 					mPageIdx = mPageEA;
 					mPageEA++;
+					mActivity.screen_clear();
 				}
-				
+				etInputText[mPageIdx].setVisibility(View.VISIBLE);
 				tvBtnPageNum[mPageIdx].setSelected(true);
 			} else if(_id == R.id.tvBtnTrash) {
 				if(mPageEA > MAPP.START_ALIVE) {
@@ -617,14 +675,32 @@ public class MFragmentText extends Fragment {
 					tvBtnPageNum[_last_idx].setVisibility(View.GONE);
 					tvBtnPageNum[_last_idx].setSelected(false);
 					mPageEA--;
+					
+					mActivity.screen_clear();
 				}
-				etInputText[MAPP.INIT_].setTextColor(strText[MAPP.INIT_].mColor);
+				mPageIdx = MAPP.INIT_;
+				mPenColor = strText[MAPP.INIT_].mColor;
+				gdColorSelect.setColor(mPenColor);
+				tvSelectColor.setBackground(gdColorSelect);
+				
+				etInputText[MAPP.INIT_].setTextColor(mPenColor);
 				etInputText[MAPP.INIT_].setText(strText[MAPP.INIT_].mText);
 				etInputText[MAPP.INIT_].setVisibility(View.VISIBLE);
 				tvBtnPageNum[MAPP.INIT_].setSelected(true);
 			}
 		}
 	};
+	
+	private void mSetPageColorAndTextChange(int _idx) {
+		mPageIdx = _idx;
+		tvBtnPageNum[mPageIdx].setSelected(true);
+		etInputText[mPageIdx].setVisibility(View.VISIBLE);
+		
+		mPenColor = strText[mPageIdx].mColor;
+		gdColorSelect.setColor(mPenColor);
+		tvSelectColor.setBackground(gdColorSelect);
+		etInputText[mPageIdx].setTextColor(mPenColor);
+	}
 	
 	private View.OnClickListener mOnPageMatrixClickListener = new View.OnClickListener() {
 		@Override

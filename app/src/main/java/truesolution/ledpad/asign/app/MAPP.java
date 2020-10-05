@@ -18,14 +18,39 @@ public class MAPP extends Application {
 	 * Init
 	 */
 	public static final int INIT_                   = 0;
+	/**
+	 * The constant SUCCESS_.
+	 */
 	public static final int SUCCESS_                = 1;
+	/**
+	 * The constant NONE_.
+	 */
 	public static final int NONE_                   = 0;
+	/**
+	 * The constant START_ALIVE.
+	 */
 	public static final int START_ALIVE             = 1;
+	/**
+	 * The constant ERROR_.
+	 */
 	public static final int ERROR_                  = -1;
 	
+	/**
+	 * The constant STR_ERROR.
+	 */
 	public static final String STR_ERROR            = "-1";
+	/**
+	 * The constant STR_INIT.
+	 */
 	public static final String STR_INIT             = "0";
+	/**
+	 * The constant STR_.
+	 */
+	public static final String STR_                 = "";
 	
+	/**
+	 * The constant mCategoryTitleList.
+	 */
 	public static ArrayList<String> mCategoryTitleList = new ArrayList<>();
 	
 	/**
@@ -46,13 +71,16 @@ public class MAPP extends Application {
 	/**
 	 * LCD Size and Half LCD Size
 	 */
-	public static int LCD_W, /**
+	public static int LCD_W,
+	/**
 	 * The Lcd h.
 	 */
-	LCD_H, /**
+	LCD_H,
+	/**
 	 * The Lcd hw.
 	 */
-	LCD_HW, /**
+	LCD_HW,
+	/**
 	 * The Lcd hh.
 	 */
 	LCD_HH;

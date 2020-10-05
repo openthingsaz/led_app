@@ -19,23 +19,44 @@ import truesolution.ledpad.asign.share.MShared;
 /**
  * Created by TCH
  *
- * @author think.code.help@gmail.com
+ * @author think.code.help @gmail.com
  * @version 1.0
  * @date 2020. 07. 01.
  */
 public class IntroActivity extends MBaseActivity {
+	/**
+	 * The M tv center.
+	 */
 	@BindView(R.id.mTVCenter)
 	TextView mTVCenter;
+	/**
+	 * The M intro logo.
+	 */
 	@BindView(R.id.mIntroLogo)
 	ImageView mIntroLogo;
+	/**
+	 * The M tv version.
+	 */
 	@BindView(R.id.mTVVersion)
 	TextView mTVVersion;
+	/**
+	 * The Tv cover l.
+	 */
 	@BindView(R.id.tvCoverL)
 	TextView tvCoverL;
+	/**
+	 * The Tv cover e.
+	 */
 	@BindView(R.id.tvCoverE)
 	TextView tvCoverE;
+	/**
+	 * The Tv cover d.
+	 */
 	@BindView(R.id.tvCoverD)
 	TextView tvCoverD;
+	/**
+	 * The Tv cover pad.
+	 */
 	@BindView(R.id.tvCoverPAD)
 	TextView tvCoverPAD;
 	

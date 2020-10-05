@@ -12,6 +12,8 @@
     <string name="pop_button_concel">Cancel</string>
     <string name="pop_msg_destroy">앱을 종료 하시겠습니까?</string>
 
+    <string name="pop_msg_local_img_load_error">Emoticon Image 를 불러오는데 실패하였습니다. 다시 시도하여 주십시오.</string>
+
     <!-- Intro -->
     <string name="ver_code_name">Ver.</string>
 
@@ -31,8 +33,10 @@
     <string name="text_menu_show_mode_device_id">장치의 ID를 입력해 주세요</string>
     <string name="text_menu_show_mode_channel_select">Channel 선택</string>
     <string name="text_menu_show_mode_connection_info">연결 정보</string>
-    <string name="text_connected">Connected</string>
+    <string name="text_connecte">연 결</string>
     <string name="text_disconnected">Disconnected</string>
+    <string name="text_connected">Connected</string>
+    <string name="text_firmware_update_search">검 색</string>
 
     <!-- Device List -->
     <string name="text_device_list_none_device">사용 가능한 디바이스가 없습니다\n디바이스를 검색해 주세요</string>
@@ -52,6 +56,8 @@
     <string name="text_menu_gallery_search">검색</string>
     <string name="text_menu_gallery_hint_category_name_input">카테고리 이름을 입력해 하세요.</string>
     <string name="text_menu_gallery_category_name_input_none">카테고리 이름을 입력해 하세요.</string>
+    <string name="text_menu_gallery_search_name_input_none">검색어를 입력하세요.</string>
+    <string name="text_menu_gallery_search_list_none">검색어 결과가 없습니다.</string>
 
     <!-- Draw -->
     <string name="text_menu_draw_page">[Matrix &amp; Page]</string>
@@ -71,6 +77,7 @@
     <string name="text_menu_text_speed_time">[Speed(1000ms = 1초)]</string>
     <string name="text_speed_unit">ms</string>
     <string name="text_bt_check_auto_connect">자동 연결</string>
+    <string name="text_save">저장</string>
 
     <string-array name="sa_category_title">
         <item>데이트</item>
